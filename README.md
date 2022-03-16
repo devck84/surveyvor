@@ -1,61 +1,104 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+I.E.S. Puerto de la Cruz         C.F.G.S. Desarrollo de Aplicaciones Multiplataforma
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+# ANTEPROYECTO
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Nombre del proyecto: Surveyvor </br>
+Alumno: Dereck Emanuel Cepeda Colmenares </br>
+Curso: CFGS  Desarrollo de Aplicaciones Multiplataforma</br>
+Tutor: Juan Carlos Pérez Rodríguez</br>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# OBJETIVOS 
+Una aplicación multiplataforma donde cada usuario registrado sea capaz de generar, editar, remover encuestas con sus respectivas preguntas de distintos tipos. A partir de la encuesta creada el usuario podrá compartir el enlace generado para que los destinatarios rellenen la encuesta, asimismo se generarán reportes y estadísticas basadas en las respuestas de la misma.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# PRE-ANÁLISIS DEL SISTEMA 
+Una aplicación multiplataforma donde cada usuario (Registrado o logueado a traves de Google) podrá ver/crear/editar/eliminar/probar las encuestas, pudiendo asimismo añadir, modificar y remover preguntas, estas preguntas podrán ser respondidas según se haya seleccionado el tipo de respuesta en la creación de la encuesta, los tipos de respuesta podrán ser:
+<ul>
+<li>Respuesta corta</li>
+<li>Respuesta larga</li>
+<li>Selección</li>
+<li>Fechas</li>
+<li>Rangos </li>
+<li>Email</li>
+<li>URL</li>
+<li>Número de Teléfono</li>
+  </ul>
+(Las preguntas pueden ser o no requeridas)
 
-## Learning Laravel
+La apariencia de la encuesta también podrá ser cambiada (Color de fondo y el color de los botones para avanzar a la siguiente pregunta)
+		
+También se podrá enlazar preguntas entre ellas, pudiendo obviar la siguiente pregunta según la respuesta de la antecesora.
+Ejemplo:
+¿El servicio provisto fue el esperado?
+¿Que habría que mejorar para que fuese lo esperado?
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Si la respuesta a la primera pregunta es “sí”, no tendría sentido preguntar la segunda pregunta, así que simplemente se obviará.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Las respuestas podrán ser tanto anónimas como con usuarios ya registrados, pudiendo así tener amigos en la plataforma, podrás también ver las encuestas de tus amigos si son públicas o de “amigos cercanos”, y por último también podrás chatear con ellos.
 
-## Laravel Sponsors
+En caso de ser parte de una empresa y el uso de las encuestas sea empresarial, se podrá crear un equipo para tener encuestas compartidas.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+En caso de que un usuario deje la encuesta sin terminar, se guardará el progreso por un tiempo.
 
-### Premium Partners
+La aplicación también generará reportes y estadísticas de distintos tipos en base a las respuestas de cada encuesta.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+# EJEMPLO DE USO	
+Represento a una compañía de servicio de envíos, y he notado que los contratos/ventas han bajado, más no consigo la razón del porqué,  por lo que al proceso de envíos añadiré una encuesta de satisfacción del cliente, valorando y dando su opinión del servicio provisto, y así sabremos si hay algún fallo entre nuestros servicios y poder buscar soluciones al supuesto.
 
-## Contributing
+# ESTIMACIÓN DE COSTES 
+La estimación aproximada de este desarrollo es de 48 días.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Fecha de inicio: 11/03/2022
+<table>
+  <tr>
+    <th>Actividad
+<th>Fecha Inicio</th>
+<th>Fecha Fin</th>
+<th>Días / horas</th>
+  </tr>
+  <tr>
+    <td>Base de datos</td>
+<td>11/03/2022 </td>
+<td>14/03/2022</td>
+<td>2 días / 6 horas</td>
+  </tr>
+  <tr>
+    <td>API Securizada</td>
+<td>15/03/2022</td>
+<td>24/03/2022</td>
+<td>9 días  / 27 horas</td>
+  </tr>
+  <tr>
+    <td>Aplicación cliente React</td>
+<td>25/03/2022</td>
+<td>07/04/2022</td>
+<td>10 días  / 30 horas</td>
+  </tr>
+  <tr>
+    <td>Aplicación cliente Android</td>
+<td>08/04/2022</td>
+<td>23/04/2022</td>
+<td>12 días  / 36 horas</td>
+  </tr>
+  <tr>
+    <td>Aplicación cliente Flutter</td>
+<td>24/04/2022</td>
+<td>10/05/2022</td>
+<td>12 días  / 36 horas</td>
+  </tr>
+  <tr>
+    <td>Manuales</td>
+<td>11/05/2022</td>
+<td>16/05/2022</td>
+<td>3 días  / 9 horas</td>
+  </tr>
+</table>
 
-## Code of Conduct
+Fecha de fin: 17/05/2022
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<a href="https://trello.com/b/CbqL3XvR/surveyvor">Trello</a>
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Este proyecto no estima costes económicos.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<a href="https://docs.google.com/document/d/1289RC94zp9-F_BGkH5j7pryAooYCLCsZ/edit?usp=sharing&ouid=105773860442387835542&rtpof=true&sd=true"> VER ANTEPROYECTO COMPLETO </a>
