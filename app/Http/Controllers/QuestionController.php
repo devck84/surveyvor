@@ -81,7 +81,7 @@ class QuestionController extends Controller
         if(count($question)<1 || empty($question)){
             return response()->json([
                 'error' =>'Whoops, this question doesn\'t exist'
-            ],201)
+            ],201);
         }
 
         $validator = Validator::make($request->all(), [
@@ -101,28 +101,31 @@ class QuestionController extends Controller
         $question->required = $request->required;
         $question->sequence_number = $request->sequence_number;
 
-        ($question->save()>0) ? 
-            return response()->json([
-                'message' =>'Question successfully updated!'
-            ],201)
-        :
-             return response()->json([
+        if($question->save()>0) {return response()->json([
                 'error' =>'Whoops, something went wrong!'
-            ],201);
+            ],201); 
+        }
+        
+        return response()->json([
+            'message' =>'Question successfully updated!'
+        ],201);
+        
+             
     }
 
     public function delete($question_id){
         $question = Question::where('question_id',$question_id)
             ->first();
 
-        ($question->delete()>0) ? 
+        if($question->delete()<1) {
             return response()->json([
-                'message' =>'Question successfully deleted!'
-            ],201)
-        :
-             return response()->json([
                 'error' =>'Whoops, something went wrong!'
             ],201);
+        }
+        return response()->json([
+                'message' =>'Question successfully deleted!'
+            ],201);
+             
     }
 
 }

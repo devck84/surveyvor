@@ -21,6 +21,19 @@ class TeamController extends Controller
         return response()->json(['teams'=>Team::all()],201);
     }
 
+    public function getByUser()
+    {   
+        $user = auth()->user();
+
+        $team = Team::where('user_id',$user->user_id)->get();
+        if(!isset($team)){
+            return response()->json([
+                'error' =>'Whoops, it looks like your team doesn\'t exist'
+            ],201);
+        }
+        return response()->json(['teams'=>$team],201);
+    }
+
     public function save(Request $request)
     {
         
@@ -47,7 +60,7 @@ class TeamController extends Controller
 
         if(empty($t)){
             return response()->json([
-                'error' =>'Whoops, it looks like your survey doesn\'t exist'
+                'error' =>'Whoops, it looks like your team doesn\'t exist'
             ],201);
         }
 
@@ -80,15 +93,16 @@ class TeamController extends Controller
         $t = Team::where('team_id',$team_id)
             ->first();
 
-        if($t->delete()>0) {
+        if($t->delete()<1) {
             return response()->json([
-                'message' =>'Team successfully deleted!'
-            ],201);
-        }else{
-             return response()->json([
                 'error' =>'Whoops, something went wrong!'
             ],201);
-         }
+            
+        }
+
+        return response()->json([
+                'message' =>'Team successfully deleted!'
+            ],201);
     }
 
 }
