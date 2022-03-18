@@ -12,14 +12,18 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'family_name', 'email', 'password','country_code', 'avatar', 'telephone',
     ];
+
+    protected $table = 'User';
 
     /**
      * The attributes that should be hidden for arrays.
@@ -57,5 +61,9 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function getKeyName(){
+        return "user_id";
     }
 }
