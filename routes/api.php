@@ -41,8 +41,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'team'
 	], function ($router) {
-	    Route::post('all', 'App\Http\Controllers\TeamController@getAll');
-	    Route::post('mine', 'App\Http\Controllers\TeamController@getByUser');
+	    Route::get('all', 'App\Http\Controllers\TeamController@getAll');
+	    Route::get('mine', 'App\Http\Controllers\TeamController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\TeamController@save');
 	    Route::post('delete/{team_id}', 'App\Http\Controllers\TeamController@delete');
 	    Route::post('update/{team_id}', 'App\Http\Controllers\TeamController@update');
@@ -52,8 +52,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'teammember'
 	], function ($router) {
-	    Route::post('all', 'App\Http\Controllers\TeamMemberController@getAll');
-	    Route::post('all/{team_id}', 'App\Http\Controllers\TeamMemberController@getByTeam');
+	    Route::get('all', 'App\Http\Controllers\TeamMemberController@getAll');
+	    Route::get('all/{team_id}', 'App\Http\Controllers\TeamMemberController@getByTeam');
 	    Route::post('save', 'App\Http\Controllers\TeamMemberController@save');
 	    Route::post('delete/{team_member_id}', 'App\Http\Controllers\TeamMemberController@delete');
 });
@@ -62,8 +62,17 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'privacy'
 	], function ($router) {
-	    Route::post('all', 'App\Http\Controllers\TeamMemberController@getAll');
-	    Route::post('all/{team_id}', 'App\Http\Controllers\TeamMemberController@getByTeam');
-	    Route::post('save', 'App\Http\Controllers\TeamMemberController@save');
-	    Route::post('delete/{team_member_id}', 'App\Http\Controllers\TeamMemberController@delete');
+	    Route::get('all', 'App\Http\Controllers\TeamMemberController@getAll');
+	    Route::get('all/{privacy_id}', 'App\Http\Controllers\TeamMemberController@getById');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'survey'
+	], function ($router) {
+	    Route::get('all', 'App\Http\Controllers\SurveyController@getAll');
+	    Route::get('mine', 'App\Http\Controllers\SurveyController@getByUser');
+	    Route::post('save', 'App\Http\Controllers\SurveyController@save');
+	    Route::post('update/{survey_id}', 'App\Http\Controllers\SurveyController@save');
+	    Route::delete('delete/{survey_id}', 'App\Http\Controllers\SurveyController@save');
 });

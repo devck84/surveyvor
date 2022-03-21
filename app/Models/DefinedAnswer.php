@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class DefinedAnswer extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
+    protected $table = 'DefinedAnswer';
+
+    public function getKeyName(){
+        return "defined_answer_id";
+    }
 }

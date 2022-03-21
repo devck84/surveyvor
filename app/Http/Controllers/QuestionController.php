@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Question;
 use App\Models\Survey;
 
+
 class QuestionController extends Controller
 {
     public function __construct()
@@ -25,11 +26,10 @@ class QuestionController extends Controller
      public function getBySurvey($survey_id)
     {
         $usr = auth()->user();
-
-        $allSurveys = Survey::where([
-                ['user_id',$usr->user_id],
-                ['survey_id',$survey_id]
-            ])
+        $team_ids = getTeamIds();
+        $allSurveys = Survey::where('survey_id',$survey_id)
+            ->whereIn('team_id', $team_ids)
+            ->orWhere('user_id', $user->user_id)
             ->get();
 
         if(empty($allSurveys) || count($allSurveys)<1)
@@ -45,7 +45,7 @@ class QuestionController extends Controller
     public function save()
     {
         $usr = auth()->user();
-        
+         $team_ids = getTeamIds();
         $validator = Validator::make($request->all(), [
             'survey_id' => 'required|integer',
             'next_question_id' => 'integer',
@@ -58,10 +58,9 @@ class QuestionController extends Controller
             return response()->json($validator->errors()->toJson(),400);
 
 
-        $allSurveys = Survey::where([
-                ['user_id',$usr->user_id],
-                ['survey_id',$request->survey_id]
-            ])
+        $allSurveys = Survey::where('survey_id',$request->survey_id)
+            ->whereIn('team_id', $team_ids)
+            ->orWhere('user_id', $user->user_id)
             ->get();
 
         if(empty($allSurveys) || count($allSurveys)<1)
@@ -75,7 +74,11 @@ class QuestionController extends Controller
     }
 
     public function update($question_id){
+        $user = auth()->user();
+        $team_ids = getTeamIds();
         $question = Question::where('question_id',$question_id)
+            ->whereIn('team_id', $team_ids)
+            ->orWhere('user_id', $user->user_id)
             ->first();
 
         if(count($question)<1 || empty($question)){
@@ -95,11 +98,7 @@ class QuestionController extends Controller
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
 
-        $question->next_question_id = $request->next_question_id;
-        $question->question_text = $request->question_text;
-        $question->question_type_id = $request->question_type_id;
-        $question->required = $request->required;
-        $question->sequence_number = $request->sequence_number;
+        $affected = Question::where('question_id',$question_id)->update($validator->validate());
 
         if($question->save()>0) {return response()->json([
                 'error' =>'Whoops, something went wrong!'
@@ -109,12 +108,15 @@ class QuestionController extends Controller
         return response()->json([
             'message' =>'Question successfully updated!'
         ],201);
-        
              
     }
 
     public function delete($question_id){
+        $user = auth()->user();
+        $team_ids = getTeamIds();
         $question = Question::where('question_id',$question_id)
+            ->whereIn('team_id', $team_ids)
+            ->orWhere('user_id', $user->user_id)
             ->first();
 
         if($question->delete()<1) {

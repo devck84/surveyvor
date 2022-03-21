@@ -24,7 +24,7 @@ class PrivacyController extends Controller
     public function getById($privacy_id){
         $privacy = Privacy::where('privacy_id', $privacy_id)
             ->first();
-        return response()->json(['Privacy'=>$privacy],201);
+        return response()->json(['privacy'=>$privacy],201);
     }
 
 }

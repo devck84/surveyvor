@@ -42,14 +42,14 @@ class TeamMemberController extends Controller
 
     public function save(Request $request)
     {  
+        $user = auth()->user();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
             'team_id' => 'required|integer',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
         
-        $teamMember = TeamMember::create(array_merge($validator->validate(),['date_registered'=>now()]));
+        $teamMember = TeamMember::create(array_merge($validator->validate(),['user_id'=>$user->user_id, 'date_registered'=>now()]));
         return response()->json([
             'message' =>'Team Member successfully saved!',
             'team_member'=>$teamMember

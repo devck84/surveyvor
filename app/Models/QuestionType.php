@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionType extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+
+    protected $table = 'QuestionType';
+
+    public function getKeyName(){
+        return "question_type_id";
+    }
 }

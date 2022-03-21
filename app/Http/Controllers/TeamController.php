@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Team;
+use App\Http\Controllers\TeamController;
 
 class TeamController extends Controller
 {
@@ -36,17 +38,18 @@ class TeamController extends Controller
 
     public function save(Request $request)
     {
-        
+        $user = auth()->user();
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
             'team_name' => 'required|string|max:255',
             'team_description' => 'required|string',
-            'team_url_invitation' => 'required|string',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
         
-        $team = Team::create($validator->validate());
+        $team = Team::create( array_merge($validator->validate(),['user_id'=>$user->user_id]) );
+        $timeCreated = Crypt::encryptString(date("m-d-Y H:i:s"));
+        $urlTeam = SERVER_NAME.'/invite/'.$team->team_id.'/'.$timeCreated;
+        Team::where('team_id',$team->team_id)->update(['team_url_invitation'=>$urlTeam]);
         return response()->json([
             'message' =>'Team successfully saved!',
             'team'=>$team
@@ -54,42 +57,43 @@ class TeamController extends Controller
     }
 
     public function update($team_id, Request $request){
-
-        $t = Team::where('team_id',$team_id)
-            ->first();
-
-        if(empty($t)){
-            return response()->json([
+        $teamIds = getTeamIds();
+        if(!in_array($team_id,$teamIds)){
+             return response()->json([
                 'error' =>'Whoops, it looks like your team doesn\'t exist'
             ],201);
         }
 
+        $t = Team::where('team_id',$team_id)
+            ->first();
+
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer',
             'team_name' => 'required|string|max:255',
             'team_description' => 'required|string',
-            'team_url_invitation' => 'required|string',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
 
-        $t->user_id = $request->user_id;
-        $t->team_name = $request->team_name;
-        $t->team_description = $request->team_description;
-        $t->team_url_invitation = $request->team_url_invitation;
+        $affected = Team::where('team_id',$team_id)->update($validator->validate());
 
-        if($t->save()>0) {
+        if($affected>0) {
             return response()->json([
                 'message' =>'Team successfully updated!'
             ],201);
-        }else{
-             return response()->json([
+        }
+        return response()->json([
                 'error' =>'Whoops, something went wrong!'
             ],201);
-         }
     }
 
     public function delete($team_id){
+        $teamIds = getTeamIds();
+        if(!in_array($team_id,$teamIds)){
+             return response()->json([
+                'error' =>'Whoops, it looks like your team doesn\'t exist'
+            ],201);
+        }
+
         $t = Team::where('team_id',$team_id)
             ->first();
 
