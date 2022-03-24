@@ -19,7 +19,7 @@ class DefinedAnswerController extends Controller
 
     public function getAll()
     {
-        return response()->json(['defined_answer'=>DefinedAnswer::all()],201);
+        return response()->json(['definedAnswer'=>DefinedAnswer::all()],201);
     }
 
     public function getById($defined_answer_id)
@@ -38,12 +38,23 @@ class DefinedAnswerController extends Controller
         if(!isset($definedAnswer)){
             return response()->json(['error'=>'It looks like it is not your defined answer'],401);
         }
-        return response()->json(['defined_answer'=>$definedAnswer],201);
+        return response()->json(['definedAnswer'=>$definedAnswer],201);
     }
 
     public function save(Request $request)
     {  
         $user = auth()->user();
+        $surveyIds = getSurveysId();
+
+        $questionIds = Question::whereIn('survey_id',$surveyIds)
+            ->select('question_id')
+            ->get();
+
+        if(!in_array($request->question_id,$questionIds)){
+            return response()->json([
+                'error' =>'It looks like it is not your question',
+            ],201);
+        }
         $validator = Validator::make($request->all(), [
             'question_id' => 'required|integer',
             'defined_answer_text'=>'required|integer|max:220',
@@ -88,13 +99,13 @@ class DefinedAnswerController extends Controller
                 'message' =>'Defined answer successfully updated!'
             ],201);
         }
-             return response()->json([
-                'error' =>'Whoops, something went wrong!'
-            ],201);
+         return response()->json([
+            'error' =>'Whoops, something went wrong!'
+        ],201);
          
     }
 
-    public function delete($team_member_id){
+    public function delete($defined_answer_id){
         $surveyIds = getSurveysId();
         $user = auth()->user();
 
@@ -105,10 +116,6 @@ class DefinedAnswerController extends Controller
         $definedAnswer = DefinedAnswer::whereIn('question_id',$questionIds)
             ->where('defined_answer_id',$defined_answer_id)
             ->first();
-
-         if(!isset($definedAnswer)){
-            return response()->json(['error'=>'It looks like it is not your defined answer'],401);
-        }
 
         if(!isset($definedAnswer) || $definedAnswer->delete()<1) {
             return response()->json([

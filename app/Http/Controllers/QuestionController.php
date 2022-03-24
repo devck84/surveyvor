@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Question;
 use App\Models\Survey;
 
-
 class QuestionController extends Controller
 {
     public function __construct()
@@ -23,7 +22,7 @@ class QuestionController extends Controller
         return response()->json(['questions'=>Question::all()],201);
     }
 
-     public function getBySurvey($survey_id)
+    public function getBySurvey($survey_id)
     {
         $usr = auth()->user();
         $team_ids = getTeamIds();
@@ -42,7 +41,7 @@ class QuestionController extends Controller
         return response()->json(['questions'=>$allQuestion],201);
     }
 
-    public function save()
+    public function save(Request $request)
     {
         $usr = auth()->user();
          $team_ids = getTeamIds();
@@ -73,12 +72,11 @@ class QuestionController extends Controller
         ],201);
     }
 
-    public function update($question_id){
+    public function update($question_id, Request $request){
         $user = auth()->user();
-        $team_ids = getTeamIds();
+        $survey_ids = getSurveyIds();
         $question = Question::where('question_id',$question_id)
-            ->whereIn('team_id', $team_ids)
-            ->orWhere('user_id', $user->user_id)
+            ->whereIn('survey_id', $survey_ids)
             ->first();
 
         if(count($question)<1 || empty($question)){
@@ -100,7 +98,8 @@ class QuestionController extends Controller
 
         $affected = Question::where('question_id',$question_id)->update($validator->validate());
 
-        if($question->save()>0) {return response()->json([
+        if($affected<1) {
+            return response()->json([
                 'error' =>'Whoops, something went wrong!'
             ],201); 
         }
@@ -113,10 +112,9 @@ class QuestionController extends Controller
 
     public function delete($question_id){
         $user = auth()->user();
-        $team_ids = getTeamIds();
+        $survey_ids = getSurveyIds();
         $question = Question::where('question_id',$question_id)
-            ->whereIn('team_id', $team_ids)
-            ->orWhere('user_id', $user->user_id)
+            ->whereIn('survey_id', $survey_ids)
             ->first();
 
         if($question->delete()<1) {

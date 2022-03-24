@@ -15,4 +15,9 @@ class QuestionType extends Model
     public function getKeyName(){
         return "question_type_id";
     }
+
+    protected $fillable = [ 
+    	'question_type_text',
+    	'question_type_description',
+    ];
 }

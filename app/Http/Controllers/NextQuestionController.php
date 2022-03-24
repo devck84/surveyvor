@@ -25,8 +25,14 @@ class NextQuestionController extends Controller
     public function getByQuestion($question_id)
     {   
         $questionIds = $this->getQuestionId();
+
+        if(!in_array($question_id,$questionIds)){
+            return response()->json([
+                'error' =>'It looks like it is not your question',
+            ],201);
+        }
         
-        $nextQuestion = NextQuestion::whereIn('question_id',$questionIds)->get();
+        $nextQuestion = NextQuestion::where('question_id',$question_id)->get();
         
         if(!isset($nextQuestion)){
             return response()->json([

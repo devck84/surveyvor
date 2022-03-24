@@ -15,14 +15,14 @@ class Survey extends Model
 
      protected $fillable = [
         'team_id',
-            'privacy_id',
-            'survey_name',
-            'survey_description',
-            'button_color',
-            'background_color',
-            'active',
-            'date_created',
-            'user_id',
+        'privacy_id',
+        'survey_name',
+        'survey_description',
+        'button_color',
+        'background_color',
+        'active',
+        'date_created',
+        'user_id',
     ];
 
      public function getKeyName(){

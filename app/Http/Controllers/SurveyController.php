@@ -73,7 +73,7 @@ class SurveyController extends Controller
             ->orWhere('user_id',$user->user_id)
             ->first();
 
-        if(empty($t)){
+        if(empty($t) || !isset($t)){
             return response()->json([
                 'error' =>'Whoops, it looks like your team doesn\'t exist'
             ],201);

@@ -15,4 +15,8 @@ class DefinedAnswer extends Model
     public function getKeyName(){
         return "defined_answer_id";
     }
+     protected $fillable = [
+        'defined_answer_id',
+    	'question_id',
+    ];
 }

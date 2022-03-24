@@ -18,7 +18,7 @@ class PrivacyController extends Controller
 
     public function getAll()
     {        
-        return response()->json(['Privacy'=>Privacy::all()],201);
+        return response()->json(['privacy'=>Privacy::all()],201);
     }
 
     public function getById($privacy_id){
