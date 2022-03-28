@@ -85,8 +85,6 @@ class ChatController extends Controller
              
     }
 
-
-
     public function delete($chat_id){
         $user = auth()->user();
 

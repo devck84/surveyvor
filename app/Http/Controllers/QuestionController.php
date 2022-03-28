@@ -24,7 +24,7 @@ class QuestionController extends Controller
 
     public function getBySurvey($survey_id)
     {
-        $usr = auth()->user();
+        $user = auth()->user();
         $team_ids = getTeamIds();
         $allSurveys = Survey::where('survey_id',$survey_id)
             ->whereIn('team_id', $team_ids)
@@ -43,7 +43,7 @@ class QuestionController extends Controller
 
     public function save(Request $request)
     {
-        $usr = auth()->user();
+        $user = auth()->user();
          $team_ids = getTeamIds();
         $validator = Validator::make($request->all(), [
             'survey_id' => 'required|integer',
@@ -51,7 +51,7 @@ class QuestionController extends Controller
             'question_text' => 'required|string',
             'question_type_id' => 'required|integer',
             'required' => 'required|integer|max:1',
-            'sequence_number '=>'required|integer',
+            'sequence_number'=>'required|integer',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
