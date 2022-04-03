@@ -47,7 +47,7 @@ class QuestionController extends Controller
          $team_ids = getTeamIds();
         $validator = Validator::make($request->all(), [
             'survey_id' => 'required|integer',
-            'next_question_id' => 'integer',
+            'next_question_id' => 'integer|nullable',
             'question_text' => 'required|string',
             'question_type_id' => 'required|integer',
             'required' => 'required|integer|max:1',
@@ -87,7 +87,7 @@ class QuestionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'survey_id' => 'required|integer',
-            'next_question_id' => 'integer',
+            'next_question_id' => 'integer|nullable',
             'question_text' => 'required|string',
             'question_type_id' => 'required|integer',
             'required' => 'required|integer|max:1',

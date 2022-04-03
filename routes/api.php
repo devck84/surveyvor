@@ -65,8 +65,8 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'privacy'
 	], function ($router) {
-	    Route::get('all', 'App\Http\Controllers\TeamMemberController@getAll');
-	    Route::get('all/{privacy_id}', 'App\Http\Controllers\TeamMemberController@getById');
+	    Route::get('all', 'App\Http\Controllers\PrivacyController@getAll');
+	    Route::get('all/{privacy_id}', 'App\Http\Controllers\PrivacyController@getById');
 });
 
 Route::group([

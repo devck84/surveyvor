@@ -17,10 +17,14 @@ function getTeamIds(){
 
 function getSurveysId(){
     $user = auth()->user();
-    $team_ids = $this->getTeamIds();
+    $team_ids = getTeamIds();
+    $surveyIdArr = [];
     $surveyIds = Survey::whereIn('team_id', $team_ids)
         ->orWhere('user_id',$user->user_id)
         ->select('survey_id')
         ->get();
-    return $surveyIds;
+    foreach ($surveyIds as $s) {
+      array_push($surveyIdArr, $s->survey_id); 
+    }
+    return $surveyIdArr;
 }

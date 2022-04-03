@@ -80,7 +80,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 86400
         ]);
     }
 
@@ -91,8 +91,8 @@ class AuthController extends Controller
 	        'email' => 'required|string|email|max:100|unique:users',
 	        'password' => 'required|string|min:6',
 	        'country_code' => 'required|string|max:3',
-	        'avatar' =>'string',
-	        'telephone'=>'integer',
+	        'avatar' =>'nullable|string',
+	        'telephone'=>'nullable|integer',
 	    ]);
 	    if($validator->fails()){
 	        return response()->json($validator->errors()->toJson(),400);

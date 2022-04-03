@@ -17,6 +17,7 @@ class DefinedAnswer extends Model
     }
      protected $fillable = [
         'defined_answer_id',
+        'defined_answer_text',
     	'question_id',
     ];
 }

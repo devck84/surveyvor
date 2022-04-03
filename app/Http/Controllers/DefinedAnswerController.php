@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DefinedAnswer;
 use App\Models\Survey;
+use App\Models\Question;
 
 class DefinedAnswerController extends Controller
 {
@@ -50,22 +51,27 @@ class DefinedAnswerController extends Controller
             ->select('question_id')
             ->get();
 
-        if(!in_array($request->question_id,$questionIds)){
+        $qArr = [];
+        foreach ($questionIds as $s) {
+          array_push($qArr, $s->question_id); 
+        }
+
+        if(!in_array($request->question_id,$qArr)){
             return response()->json([
                 'error' =>'It looks like it is not your question',
             ],201);
         }
         $validator = Validator::make($request->all(), [
             'question_id' => 'required|integer',
-            'defined_answer_text'=>'required|integer|max:220',
+            'defined_answer_text'=>'required|string|max:220',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
         
         $definedAnswer = DefinedAnswer::create($validator->validate());
         return response()->json([
-            'message' =>'Team Member successfully saved!',
-            'defined_answer'=>$definedAnswer
+            'message' =>'Defined Answer successfully saved!',
+            'definedAnswer'=>$definedAnswer
         ],201);
     }
 

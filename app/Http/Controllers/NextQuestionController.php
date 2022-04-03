@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\NextQuestion;
+use App\Models\Question;
 use App\Http\Controllers\TeamController;
 
 class NextQuestionController extends Controller
@@ -24,7 +25,7 @@ class NextQuestionController extends Controller
 
     public function getByQuestion($question_id)
     {   
-        $questionIds = $this->getQuestionId();
+        $questionIds = $this->getQuestionIds();
 
         if(!in_array($question_id,$questionIds)){
             return response()->json([
@@ -50,12 +51,17 @@ class NextQuestionController extends Controller
         $questionIds = Question::whereIn('survey_id',$surveyIds)
             ->select('question_id')
             ->get();
-        return $questionIds;
+        
+        $qArr = [];
+        foreach ($questionIds as $s) {
+          array_push($qArr, $s->question_id); 
+        }
+        return $qArr;
     }
 
     public function save(Request $request)
     {
-        $questionIds = $this->getQuestionId();
+        $questionIds = $this->getQuestionIds();
 
         if(!in_array($request->question_id,$questionIds)){
             return response()->json([
@@ -80,7 +86,7 @@ class NextQuestionController extends Controller
     }
 
     public function update($next_question_id, Request $request){
-       $questionIds = $this->getQuestionId();
+       $questionIds = $this->getQuestionIds();
 
         if(!in_array($request->question_id,$questionIds)){
             return response()->json([
@@ -109,7 +115,7 @@ class NextQuestionController extends Controller
     }
 
     public function delete($next_question_id){
-        $questionIds = $this->getQuestionId();
+        $questionIds = $this->getQuestionIds();
 
         $nextQuestion = NextQuestion::where('next_question_id',$next_question_id)
             ->whereIn('question_id',$questionIds)
