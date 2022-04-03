@@ -1,7 +1,7 @@
 export interface IQuestion {
   question_id: number;
   survey_id: number;
-  next_question_id: number;
+  next_question_id: number|null;
   question_text: string;
   question_type_id: number;
   required: number;
@@ -11,7 +11,7 @@ export interface IQuestion {
 export class Question{
     question_id: number;
     survey_id: number;
-    next_question_id: number;
+    next_question_id: number|null;
     question_text: string;
     question_type_id: number;
     required: number;

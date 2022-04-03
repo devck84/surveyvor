@@ -5,10 +5,13 @@ import { Country } from "./Model/Country";
 import { Route } from "./Model/Route";
 import { User } from "./Model/User";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const LoginComp = () => {
+  const navigate = useNavigate();
   const loginProcess = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
 
     const baseApiRoute: Route = new Route();
     const registerRoute: string = baseApiRoute.getBaseRuta() + "auth/login";
@@ -30,7 +33,7 @@ const LoginComp = () => {
       localStorage.clear();
       localStorage.setItem("token", data.token_type+" "+data.access_token);
       successMessage("Succesfuly logged", "");
-      //navigate("/");
+      navigate("/");
     } catch (error) {
       errorMessage("Whoops", "It looks like you havee used wrong credentials");
     }
