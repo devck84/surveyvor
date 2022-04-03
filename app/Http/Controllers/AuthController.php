@@ -107,4 +107,29 @@ class AuthController extends Controller
 	    ], 201 );
 	}
 
+	public function update($user_id, Request $request){
+	    $validator = Validator::make($request->all(), [
+	        'first_name' => 'required|string|max:255',
+	        'family_name' => 'required|string|max:255',
+	        'country_code' => 'required|string|max:3',
+	        'avatar' =>'nullable|string',
+	        'telephone'=>'nullable|integer',
+	    ]);
+	    if($validator->fails()){
+	        return response()->json($validator->errors()->toJson(),400);
+	    }
+
+	    $affected = User::where('user_id',$user_id)->update($validator->validate());
+
+        if($affected<1) {
+            return response()->json([
+                'error' =>'Whoops, something went wrong!'
+            ],201); 
+        }
+        
+        return response()->json([
+            'message' =>'User successfully updated!'
+        ],201);
+	}
+
 }

@@ -27,6 +27,7 @@ Route::group([
 	    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
 	    Route::get('me', 'App\Http\Controllers\AuthController@me');
 	    Route::post('register', 'App\Http\Controllers\AuthController@register');
+	    Route::post('update/{user_id}', 'App\Http\Controllers\AuthController@update');
 });
 
 Route::group([
