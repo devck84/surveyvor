@@ -7,6 +7,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import CreateSurveyComp from './CreateSurvey';
 import DashboardComp from './DashboardComp';
 import LoginComp from './LoginComp';
+import SurveyToAnswerComp from './SurveyToAnswerComp';
+import ThankYouPage from './ThankYouPage';
 
 export const RouterComponent = () => {
     return (
@@ -17,6 +19,8 @@ export const RouterComponent = () => {
                 <Route path="/register" element={<RegisterComponent />} />
                 <Route path="/survey/create" element={<CreateSurveyComp />} />
                 <Route path="/" element={<DashboardComp />} />
+                <Route path="/survey/:idsurvey" element={<SurveyToAnswerComp />} />
+                <Route path="/thankyou" element={<ThankYouPage />} />
             </Routes>
         </BrowserRouter>
     );
@@ -29,13 +33,6 @@ const Navbar = () => {
 <a className=" navbar-brand" href="/"><b>Surveyvor</b></a>
 
 <ul className="navbar-nav">
-
-  <li className="nav-item">
-    <a className="nav-link" href="/login">Login</a>
-  </li>
-  <li className="nav-item">
-    <a className="nav-link" href="/register">Register</a>
-  </li>
 
 <li className="nav-item">
     <a className="nav-link" href="/survey/create"><i className="fa fa-plus"></i></a>

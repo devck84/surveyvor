@@ -30,9 +30,6 @@ const SurveyListComp = () => {
     };
     fetchMyAPI();
   }, []);
-  const hola=()=>{
-      console.log("hola");
-  }
 
   const deleteSurvey = async (index:number, survey_id:number) =>{
     let headers = {
@@ -74,6 +71,9 @@ const SurveyListComp = () => {
       showDenyButton: false
     });
   };
+  const editSurvey = (survey_id:number) =>{
+    navigate("/survey/"+survey_id+"/edit");
+  }
   return (
     <div className="row m-0">
         <div className="col-12">
@@ -91,7 +91,7 @@ const SurveyListComp = () => {
             <div key={s.survey_id+"-surComp-"+i} className="col-6 surveyFromDash">
               <div className="card mt-3" style={{borderLeft: '2px solid #d48e63d5', }}>
                 <div className="card-body">
-                Name:<b> <span onClick={hola} style={{ cursor: 'pointer' }} className="hoverBlack" >{s.survey_name}</span> </b>  <span  style={{ float: "right" }}><b><span style={{color: "#d36b2ad5"}}>{s.active==1?"A":"Ina"}ctive</span></b> </span>
+                Name:<b> <span onClick={()=>{editSurvey(s.survey_id)}} style={{ cursor: 'pointer' }} className="hoverBlack" >{s.survey_name}</span> </b>  <span  style={{ float: "right" }}><b><span style={{color: "#d36b2ad5"}}>{s.active==1?"A":"Ina"}ctive</span></b> </span>
                     <hr />
                   Created: {s.date_created}
                   <span style={{ float: "right" }}>

@@ -174,7 +174,7 @@ const ProfileViewComp = () =>{
                   id="floatingInputTelephone"
                   placeholder="1234567"
                   name="telephone"
-                  defaultValue={ state?.user.telephone ? state?.user.telephone:0}
+                  defaultValue={ state?.user.telephone ? state?.user.telephone:""}
                 />
                 <label htmlFor="floatingInputTelephone">Telephone</label>
               </div>

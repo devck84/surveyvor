@@ -35,7 +35,7 @@ const LoginComp = () => {
       successMessage("Succesfuly logged", "");
       navigate("/");
     } catch (error) {
-      errorMessage("Whoops", "It looks like you havee used wrong credentials");
+      errorMessage("Whoops", "It looks like you have used wrong credentials");
     }
   };
   const successMessage = (title: string, message: string) => {

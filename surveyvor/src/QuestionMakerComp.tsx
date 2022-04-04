@@ -79,6 +79,7 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       definedAnswers: stateObj.definedAnswers,
     });
     props.question.question_type_id = Number(e.target.value);
+    console.log("here:"+props.question.question_type_id);
     props.saveQuestionDetails(i,props.question);
   };
 
@@ -147,7 +148,6 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
     props.saveNextQuestion(props.index-1,props.nextQuestion);
   };
 
-
   const saveQuestionPerInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
     const i = e.currentTarget.getAttribute('data-index');
     const field = e.currentTarget.getAttribute('data-field');
@@ -169,10 +169,9 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
   const saveNextQuest = (e: React.ChangeEvent<HTMLSelectElement>)=>{
     const i = e.currentTarget.getAttribute('data-index');
     props.nextQuestion.question_id = Number(e.target.value);
-    props.saveNextQuestion(i,props.nextQuestion);
+    props.saveNextQuestion(Number(i)-1,props.nextQuestion);
   }
-
-
+  
   return (
     <div className="pr-5 pl-5 pt-5">
       <div className="card col-md-12 col-xs-12 p-5">
@@ -269,7 +268,7 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
                 a.sequence_number > props.question.sequence_number
               ) {
                 return (
-                  <option key={a.question_id + "-opt-"+i} value={a.question_id}>
+                  <option key={a.question_id + "-opt-"+i} value={i}>
                     Question Nº {i + 1} - Seq. Nº {a.sequence_number}
                   </option>
                 );

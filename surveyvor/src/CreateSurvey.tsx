@@ -78,10 +78,10 @@ const CreateSurveyComp = () => {
         survey_id: 0,
         next_question_id: null,
         question_text: "",
-        question_type_id: 0,
+        question_type_id: 1,
         required: 0,
         sequence_number: surveyDetails.questions.length+1,
-      }],nextQuestions:[...surveyDetails.nextQuestions,{next_question_id:0,defined_answer_id:0,question_id:Number(bigIntValue)}],definedAnswers:[...surveyDetails.definedAnswers,{defined_answer_id:0, defined_answer_text:"", question_id:0}]});
+      }],nextQuestions:[...surveyDetails.nextQuestions,{next_question_id:0,defined_answer_id:null,question_id:null}],definedAnswers:[...surveyDetails.definedAnswers,{defined_answer_id:0, defined_answer_text:"", question_id:0}]});
     }
 
     const saveQuestionDetails = (index:number, question:Question) =>{
@@ -92,6 +92,7 @@ const CreateSurveyComp = () => {
       stateObj.questions[index].required = question.required;
       stateObj.questions[index].next_question_id = question.next_question_id;
       stateObj.questions[index].sequence_number = question.sequence_number;
+      console.log(stateObj.questions[index]);
       setSurvey(stateObj);
     }
     
@@ -169,23 +170,24 @@ const CreateSurveyComp = () => {
             'Authorization': token
         }
       };
-
-      if(surveyDetails.survey.survey_name.length<1){
+  let oldQuestions = surveyDetails.questions;
+     if(surveyDetails.survey.survey_name.length<1){
         errorMessage("Whoops!", "Have you finish the survey details? Remember to press done whenever you finish it");
         return
       }
 
       await axios.post(survRoute, surveyObj?.survey,headers)
         .then(response => {
-          console.log(response.data);
           surveyDetails.survey = response.data.survey as Survey;
           setSurvey(surveyDetails);
         });
-
-        console.log(surveyDetails.survey);
-
+        
       for (var i = 0; i < surveyDetails.questions.length; i++) {
         surveyDetails.questions[i].survey_id = surveyDetails.survey.survey_id;
+        if(!surveyDetails.questions[i].question_text){
+          errorMessage("Whoops","The question text is required");
+          return;
+        }
         await axios.post(questRoute,surveyDetails.questions[i],headers)
           .then(response => {
             surveyDetails.questions[i] = response.data.question as Question;
@@ -207,15 +209,37 @@ const CreateSurveyComp = () => {
 
       for (let i = 0; i < surveyDetails.nextQuestions.length; i++) {
         let pos = surveyDetails.nextQuestions[i].defined_answer_id;
-        surveyDetails.nextQuestions[i].defined_answer_id = surveyDetails.definedAnswers[pos].defined_answer_id;
+        console.log(pos);
+        if(pos){
+          surveyDetails.nextQuestions[i].defined_answer_id = surveyDetails.definedAnswers[pos].defined_answer_id;
         
-        await axios.post(nextQuestRoute,surveyDetails.nextQuestions[i],headers)
-        .then(response => {
-          surveyDetails.nextQuestions[i] = response.data.nextQuestion as NextQuestion;
-          setSurvey(surveyDetails);
-        });
+          let posq =surveyDetails.nextQuestions[i].question_id;
+          console.log(posq+"-");
+          if(posq!=null){
+            surveyDetails.nextQuestions[i].question_id = surveyDetails.questions[posq].question_id;
+            console.log(posq+"--");
+            await axios.post(nextQuestRoute,surveyDetails.nextQuestions[i],headers)
+            .then(response => {
+              surveyDetails.nextQuestions[i] = response.data.nextQuestion as NextQuestion;
+              setSurvey(surveyDetails);
+            });
+          }
+        }
 
       }
+
+      let questUpdRoute: string = baseApiRoute.getBaseRuta() + "question/update/";
+
+      for (var i = 0; i < surveyDetails.questions.length; i++) {
+        if(surveyDetails.nextQuestions[i].next_question_id){
+        surveyDetails.questions[i].next_question_id = surveyDetails.nextQuestions[i].next_question_id;
+        questUpdRoute = questUpdRoute+surveyDetails.questions[i].question_id;
+        await axios.post(questUpdRoute,surveyDetails.questions[i],headers)
+          .then(response => {
+            surveyDetails.questions[i] = response.data.question as Question;
+            setSurvey(surveyDetails);
+          });}
+      } 
 
     successMessage("Saved","Your survey have been succesfuly saved!");
     
