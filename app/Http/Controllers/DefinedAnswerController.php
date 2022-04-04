@@ -15,7 +15,7 @@ class DefinedAnswerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except'=>['getById']]);
     }
 
     public function getAll()
@@ -23,18 +23,14 @@ class DefinedAnswerController extends Controller
         return response()->json(['definedAnswer'=>DefinedAnswer::all()],201);
     }
 
-    public function getById($defined_answer_id)
+    public function getById($survey_id)
     {
-        $surveyIds = getSurveysId();
-        $user = auth()->user();
-
-        $questionIds = Question::whereIn('survey_id',$surveyIds)
+        $questionIds = Question::where('survey_id',$survey_id)
             ->select('question_id')
             ->get();
 
         $definedAnswer = DefinedAnswer::whereIn('question_id',$questionIds)
-            ->where('defined_answer_id',$defined_answer_id)
-            ->first();
+            ->get();
 
         if(!isset($definedAnswer)){
             return response()->json(['error'=>'It looks like it is not your defined answer'],401);

@@ -15,7 +15,7 @@ class UserAnswerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth',['except'=>['save']]);
     }
 
     public function getAll()
@@ -26,7 +26,7 @@ class UserAnswerController extends Controller
     public function getByQuestion($question_id)
     {   
         $user = auth()->user();
-        $survey_ids = getSurveyIds();
+        $survey_ids = getSurveysId();
         $question = Question::where('question_id',$question_id)
             ->whereIn('survey_id', $survey_ids)
             ->first();
@@ -46,25 +46,23 @@ class UserAnswerController extends Controller
     {
         $user = auth()->user();
 
-        $surveyIds = getSurveyIds();
-
-        if(!in_array($request->survey_id, $surveyIds)){
-            return response()->json([
-                'error' =>'Whoops, it looks like your survey doesn\'t exist for you'
-            ],400);
+        if(empty($user)){
+            $userId = null;  
+        }else{
+            $userId = $user->user_id;  
         }
-
         $validator = Validator::make($request->all(), [
             'survey_id' => 'required|integer',
             'question_id' => 'required|integer',
-            'defined_answer_id' => 'integer',
+            'defined_answer_id' => 'nullable|integer',
+            'survey_answer_text'=>'nullable|string',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
 
         $userAnswer = UserAnswer::create(array_merge(
                 $validator->validate(),
-                ['user_id'=>$user->user_id]
+                ['user_id'=>$userId]
             ));
         return response()->json([
             'message' =>'User Answer successfully saved!',
@@ -75,7 +73,7 @@ class UserAnswerController extends Controller
     public function delete($user_answer_id){
         $user = auth()->user();
 
-        $surveyIds = getSurveyIds();
+        $surveyIds = getSurveysId();
 
         $user = auth()->user();
         $team_ids = getTeamIds();

@@ -14,7 +14,7 @@ class QuestionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['getBySurvey']]);
     }
 
     public function getAll()
@@ -24,18 +24,10 @@ class QuestionController extends Controller
 
     public function getBySurvey($survey_id)
     {
-        $user = auth()->user();
-        $team_ids = getTeamIds();
-        $allSurveys = Survey::where('survey_id',$survey_id)
-            ->whereIn('team_id', $team_ids)
-            ->orWhere('user_id', $user->user_id)
-            ->get();
-
-        if(empty($allSurveys) || count($allSurveys)<1)
-            return response()->json(['error'=>'Whoops, this doesn\'t look like your survey'],401);
         
 
         $allQuestion = Question::where('survey_id',$survey_id)
+        ->orderBy('sequence_number')
             ->get();
 
         return response()->json(['questions'=>$allQuestion],201);
@@ -74,12 +66,12 @@ class QuestionController extends Controller
 
     public function update($question_id, Request $request){
         $user = auth()->user();
-        $survey_ids = getSurveyIds();
+        $survey_ids = getSurveysId();
         $question = Question::where('question_id',$question_id)
             ->whereIn('survey_id', $survey_ids)
             ->first();
 
-        if(count($question)<1 || empty($question)){
+        if(!isset($question)){
             return response()->json([
                 'error' =>'Whoops, this question doesn\'t exist'
             ],201);
@@ -91,7 +83,7 @@ class QuestionController extends Controller
             'question_text' => 'required|string',
             'question_type_id' => 'required|integer',
             'required' => 'required|integer|max:1',
-            'sequence_number '=>'required|integer',
+            'sequence_number'=>'required|integer',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
@@ -112,7 +104,7 @@ class QuestionController extends Controller
 
     public function delete($question_id){
         $user = auth()->user();
-        $survey_ids = getSurveyIds();
+        $survey_ids = getSurveysId();
         $question = Question::where('question_id',$question_id)
             ->whereIn('survey_id', $survey_ids)
             ->first();

@@ -18,6 +18,7 @@ class UserAnswer extends Model
     	'survey_id',
         'question_id',
         'defined_answer_id',
+        'survey_answer_text'
         ];
 
     public function getKeyName(){

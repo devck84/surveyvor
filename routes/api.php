@@ -75,6 +75,7 @@ Route::group([
     'prefix' => 'survey'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\SurveyController@getAll');
+	    Route::get('all/{survey_id}', 'App\Http\Controllers\SurveyController@getById');
 	    Route::get('mine', 'App\Http\Controllers\SurveyController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\SurveyController@save');
 	    Route::post('update/{survey_id}', 'App\Http\Controllers\SurveyController@update');
@@ -94,7 +95,7 @@ Route::group([
     'prefix' => 'definedAnswer'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\DefinedAnswerController@getAll');
-	    Route::get('all/{defined_answer_id}', 'App\Http\Controllers\DefinedAnswerController@getById');
+	    Route::get('all/{survey_id}', 'App\Http\Controllers\DefinedAnswerController@getById');
 	    Route::post('save', 'App\Http\Controllers\DefinedAnswerController@save');
 	    Route::post('update/{survey_id}', 'App\Http\Controllers\DefinedAnswerController@update');
 	    Route::post('delete/{survey_id}', 'App\Http\Controllers\DefinedAnswerController@delete');
@@ -105,7 +106,7 @@ Route::group([
     'prefix' => 'nextQuestion'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\NextQuestionController@getAll');
-	    Route::get('all/{next_question_id}', 'App\Http\Controllers\NextQuestionController@getByQuestion');
+	    Route::get('all/{survey_id}', 'App\Http\Controllers\NextQuestionController@getBySurvey');
 	    Route::post('save', 'App\Http\Controllers\NextQuestionController@save');
 	    Route::post('update/{next_question_id}', 'App\Http\Controllers\NextQuestionController@update');
 	    Route::post('delete/{next_question_id}', 'App\Http\Controllers\NextQuestionController@delete');
