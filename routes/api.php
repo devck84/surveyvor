@@ -26,6 +26,7 @@ Route::group([
 	    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 	    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
 	    Route::get('me', 'App\Http\Controllers\AuthController@me');
+	    Route::get('all/{user_id}', 'App\Http\Controllers\AuthController@publicData');
 	    Route::post('register', 'App\Http\Controllers\AuthController@register');
 	    Route::post('update/{user_id}', 'App\Http\Controllers\AuthController@update');
 });
@@ -77,6 +78,7 @@ Route::group([
 	    Route::get('all', 'App\Http\Controllers\SurveyController@getAll');
 	    Route::get('all/{survey_id}', 'App\Http\Controllers\SurveyController@getById');
 	    Route::get('mine', 'App\Http\Controllers\SurveyController@getByUser');
+	    Route::get('mine/{survey_id}', 'App\Http\Controllers\SurveyController@getByIdFromMySurveys');
 	    Route::post('save', 'App\Http\Controllers\SurveyController@save');
 	    Route::post('update/{survey_id}', 'App\Http\Controllers\SurveyController@update');
 	    Route::post('delete/{survey_id}', 'App\Http\Controllers\SurveyController@delete');
@@ -127,9 +129,9 @@ Route::group([
     'prefix' => 'invitation'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\InvitationController@getAll');
-	    Route::get('all/{receiver_id}', 'App\Http\Controllers\InvitationController@getByReceiver');
+	    Route::get('mine', 'App\Http\Controllers\InvitationController@getByReceiver');
 	    Route::post('save', 'App\Http\Controllers\InvitationController@save');
-	    Route::post('delete/{invitation_id}', 'App\Http\Controllers\InvitationController@delete');
+	    Route::post('delete/{sender_id}', 'App\Http\Controllers\InvitationController@delete');
 });
 
 Route::group([

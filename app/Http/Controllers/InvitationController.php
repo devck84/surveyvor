@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Invitation;
-
+use App\Models\User;
 
 class InvitationController extends Controller
 {
@@ -22,15 +22,16 @@ class InvitationController extends Controller
         return response()->json(['invitation'=>Invitation::all()],201);
     }
 
-     public function getByReceiver($receiver_id)
+     public function getByReceiver()
     {
         $usr = auth()->user();
 
-        if($receiver_id != $usr->user_id)
-            return response()->json(['error'=>'Whoops, this doesn\'t look like your Invitations'],401);
-        
+        $allSender = Invitation::where('receiver_id',$usr->user_id)
+            ->select('sender_id')
+            ->get();
 
-        $allInvitation = Invitation::where('receiver_id',$receiver_id)
+        $allInvitation = User::whereIn('user_id', $allSender)
+            ->select('user_id','email','first_name', 'family_name', 'avatar')
             ->get();
 
         return response()->json(['invitation'=>$allInvitation],201);
@@ -49,17 +50,16 @@ class InvitationController extends Controller
         $invitation = Invitation::create(array_merge($validator->validate(), ['sender_id'=>$usr->user_id, 'date_sent'=>now()]));
 
         return response()->json([
-            'message' =>'Question successfully saved!',
+            'message' =>'Invitation successfully saved!',
             'invitation'=>$invitation
         ],201);
     }
 
-    public function delete($invitation_id){
+    public function delete($sender_id){
         $user = auth()->user();
 
-        $invitation = Invitation::where('invitation_id',$invitation_id)
-            ->where('sender_id', $user->user_id)
-            ->orWhere('receiver_id',$user->user_id)
+        $invitation = Invitation::where('sender_id', $sender_id)
+            ->where('receiver_id',$user->user_id)
             ->first();
 
         if($invitation->delete()<1) {

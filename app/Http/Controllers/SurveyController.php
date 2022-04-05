@@ -27,6 +27,23 @@ class SurveyController extends Controller
         return response()->json(['survey'=>Survey::all()],201);
     }
 
+    public function getByIdFromMySurveys($survey_id){
+        $user = auth()->user();
+        $surveyids = getSurveysId();
+
+        if (!in_array($survey_id, $surveyids)) {
+             return response()->json([
+                'error' =>'Whoops, it looks like this survey is not yours'
+            ],400);
+        }
+
+        $survey = Survey::where('survey_id', $survey_id)
+            ->first();
+            
+        return response()->json(['survey'=>$survey],201);
+
+    } 
+
     public function getById($survey_id)
     {        
         $survey = Survey::where('survey_id', $survey_id)

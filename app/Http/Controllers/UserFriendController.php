@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\UserFriend;
+use App\Models\User;
 
 
 class UserFriendController extends Controller
@@ -26,11 +27,15 @@ class UserFriendController extends Controller
     {
         $user = auth()->user();
 
-        $allFriends = UserFriend::where('user_id_from',$user->user_id)
-            ->orWhere('user_id_to',$user->user_id)
+        $allFriends = UserFriend::where('user_id_to',$user->user_id)
+        ->select('user_id_from')
             ->get();
 
-        return response()->json(['friend'=>$allFriends],201);
+        $usrFriend = User::whereIn('user_id', $allFriends)
+            ->select('user_id','email','first_name', 'family_name', 'avatar')
+            ->get();
+
+        return response()->json(['friend'=>$usrFriend],201);
     }
 
     public function save(Request $request)
@@ -54,9 +59,8 @@ class UserFriendController extends Controller
     public function delete($user_friend_id){
         $user = auth()->user();
 
-        $userFriend = UserFriend::where('user_friend_id',$user_friend_id)
-            ->where('user_id_from', $user->user_id)
-            ->orWhere('user_id_to',$user->user_id)
+        $userFriend = UserFriend::where('user_id_from', $user_friend_id)
+            ->where('user_id_to',$user->user_id)
             ->first();
 
         if($userFriend->delete()<1) {

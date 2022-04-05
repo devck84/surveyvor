@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register','publicData']]);
     }
 
     /**
@@ -106,6 +106,14 @@ class AuthController extends Controller
 	        'user' => $user
 	    ], 201 );
 	}
+
+	 public function publicData($user_id)
+    {
+    	$usr = User::where('user_id',$user_id)
+    		->select('user_id','email','first_name', 'family_name', 'avatar', 'country_code')
+    		->first();
+        return response()->json(["user"=>$usr]);
+    }
 
 	public function update($user_id, Request $request){
 	    $validator = Validator::make($request->all(), [
