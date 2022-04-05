@@ -19,10 +19,10 @@ interface IState{
     nextQuestions: Array<NextQuestion>;
 }
 const SurveyToAnswerComp = () =>{
-    const { idsurvey } = useParams();
+    const { survey_id } = useParams();
     const [state, setState] = useState<IState>();
   const baseApiRoute: Route = new Route();
-  const surveyRoute: string = baseApiRoute.getBaseRuta() + "survey/all/"+idsurvey;
+  const surveyRoute: string = baseApiRoute.getBaseRuta() + "survey/all/"+survey_id;
   const token = localStorage.getItem("token") as string;
   const navigate = useNavigate();
   useEffect(() => {
@@ -36,7 +36,7 @@ const SurveyToAnswerComp = () =>{
         
       axios.get(surveyRoute, headers).then((s) => {
         let surveyd = s.data.survey as Survey;
-        const questRoute: string = baseApiRoute.getBaseRuta() + "question/all/"+idsurvey;
+        const questRoute: string = baseApiRoute.getBaseRuta() + "question/all/"+survey_id;
         let quests: Array<Question> = new Array<Question>();
         let fetchQuestions = async () =>{
             axios.get(questRoute, headers).then((s) => {
@@ -44,12 +44,12 @@ const SurveyToAnswerComp = () =>{
                 let definedAnswers: Array<DefinedAnswer> = new Array<DefinedAnswer>();
                 let fetchDefAnsw = async () =>{
                     const apiRoute: Route = new Route();
-                const definedRoute: string = apiRoute.getBaseRuta()+"definedAnswer/all/"+idsurvey;
+                const definedRoute: string = apiRoute.getBaseRuta()+"definedAnswer/all/"+survey_id;
                      axios.get(definedRoute, headers).then((d) => {
                         definedAnswers = d.data.definedAnswer;
                         let fetchNextQuest = async () =>{
                             const apiRoute: Route = new Route();
-                        const nextQuestRoute: string = apiRoute.getBaseRuta()+"nextQuestion/all/"+idsurvey;
+                        const nextQuestRoute: string = apiRoute.getBaseRuta()+"nextQuestion/all/"+survey_id;
                             await axios.get(nextQuestRoute, headers).then((d) => {
                                 let nextQuestions = d.data.nextQuestion;
                                 setState({ survey: surveyd, startedSurvey: false,  questions: quests, definedAnswers:definedAnswers, userId: 0,nextQuestions: nextQuestions }); 

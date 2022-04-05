@@ -99,6 +99,8 @@ const ProfileViewComp = () =>{
       showDenyButton: false
     });
   };
+
+  
     return(<><form onSubmit={editRegister}>
         <div className="row m-0">
         
@@ -142,6 +144,7 @@ const ProfileViewComp = () =>{
                   placeholder="name@example.com"
                   defaultValue={state?.user.email}
                   name="email"
+                  disabled
                 />
                 <label htmlFor="floatingInput">Email address</label>
               </div>

@@ -9,6 +9,8 @@ import DashboardComp from './DashboardComp';
 import LoginComp from './LoginComp';
 import SurveyToAnswerComp from './SurveyToAnswerComp';
 import ThankYouPage from './ThankYouPage';
+import ProfileComp from './ProfileComp';
+import EditSurveyComp from './EditSurveyComp';
 
 export const RouterComponent = () => {
     return (
@@ -19,8 +21,10 @@ export const RouterComponent = () => {
                 <Route path="/register" element={<RegisterComponent />} />
                 <Route path="/survey/create" element={<CreateSurveyComp />} />
                 <Route path="/" element={<DashboardComp />} />
-                <Route path="/survey/:idsurvey" element={<SurveyToAnswerComp />} />
+                <Route path="/survey/:survey_id" element={<SurveyToAnswerComp />} />
                 <Route path="/thankyou" element={<ThankYouPage />} />
+                <Route path="/profile/:user_id" element={<ProfileComp />} />
+                <Route path="survey/:survey_id/edit" element={<EditSurveyComp />} />
             </Routes>
         </BrowserRouter>
     );

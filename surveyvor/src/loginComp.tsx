@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginComp = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    localStorage.clear();
+  })
   const loginProcess = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     

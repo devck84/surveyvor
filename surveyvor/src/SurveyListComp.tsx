@@ -74,6 +74,9 @@ const SurveyListComp = () => {
   const editSurvey = (survey_id:number) =>{
     navigate("/survey/"+survey_id+"/edit");
   }
+  const openSurvey = (survey_id:number) =>{
+    navigate("/survey/"+survey_id);
+  }
   return (
     <div className="row m-0">
         <div className="col-12">
@@ -86,12 +89,12 @@ const SurveyListComp = () => {
           Add New Survey 
         </a></div>
       {state?.surveys?.map((s,i) => {
-        if (state?.surveys.length > 1) {
           return (
             <div key={s.survey_id+"-surComp-"+i} className="col-6 surveyFromDash">
               <div className="card mt-3" style={{borderLeft: '2px solid #d48e63d5', }}>
                 <div className="card-body">
-                Name:<b> <span onClick={()=>{editSurvey(s.survey_id)}} style={{ cursor: 'pointer' }} className="hoverBlack" >{s.survey_name}</span> </b>  <span  style={{ float: "right" }}><b><span style={{color: "#d36b2ad5"}}>{s.active==1?"A":"Ina"}ctive</span></b> </span>
+                Name:<b> <span onClick={()=>{editSurvey(s.survey_id)}} style={{ cursor: 'pointer' }} className="hoverBlack" >{s.survey_name}</span> </b> <span onClick={()=>{openSurvey(s.survey_id)}} style={{ cursor: 'pointer', color: 'gray', marginLeft: '10px' }} className="hoverBlack" ><i className="fa fa-share-alt-square" aria-hidden="true"></i>
+  </span><span  style={{ float: "right" }}><b><span style={{color: "#d36b2ad5"}}>{s.active==1?"A":"Ina"}ctive</span></b> </span>
                     <hr />
                   Created: {s.date_created}
                   <span style={{ float: "right" }}>
@@ -107,26 +110,6 @@ const SurveyListComp = () => {
               </div>
             </div>
           );
-        }else{
-            <div className="col-12 surveyFromDash">
-            <div className="card mt-3" style={{borderLeft: '2px solid #d48e63d5', cursor: 'pointer'}} >
-              <div className="card-body">
-              Name:<b> {s.survey_name} </b>  <span style={{ float: "right" }}><b><span style={{color: "#d36b2ad5"}}>{s.active==1?"A":"Ina"}ctive</span></b> </span>
-                  <hr />
-                Created: {s.date_created}
-                <span style={{ float: "right" }}>
-              
-               
-                <button
-                  className="btn btn-block btn-outline-secondary"
-                 
-                >
-                  <i className="fa fa-trash"></i>
-                </button></span>
-              </div>
-            </div>
-          </div>
-        }
       })}
       
     </div>
