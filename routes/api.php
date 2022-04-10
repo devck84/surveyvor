@@ -153,6 +153,7 @@ Route::group([
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\ChatController@getAll');
 	    Route::get('all/{chat_id}', 'App\Http\Controllers\ChatController@getById');
+	    Route::get('mine', 'App\Http\Controllers\ChatController@getByUserLogged');
 	    Route::get('user/{user_id}', 'App\Http\Controllers\ChatController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\ChatController@save');
 	    Route::post('update/{chat_id}', 'App\Http\Controllers\ChatController@update');

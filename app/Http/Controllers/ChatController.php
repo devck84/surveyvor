@@ -34,7 +34,18 @@ class ChatController extends Controller
         return response()->json(['chat'=>$chat],201);
     }
 
-     public function getByUser($user_id)
+     public function getByUserLogged()
+    {
+        $user = auth()->user();
+
+        $allChat = Chat::where('user_id_from',$user->user_id)
+            ->orWhere('user_id_to',$user->user_id)
+            ->get();
+
+        return response()->json(['chat'=>$allChat],201);
+    }
+
+    public function getByUser($user_id)
     {
         $user = auth()->user();
 
