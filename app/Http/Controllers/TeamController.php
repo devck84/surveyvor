@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Team;
+use App\Models\TeamMember;
 use App\Http\Controllers\TeamController;
 
 class TeamController extends Controller
@@ -27,7 +28,12 @@ class TeamController extends Controller
     {   
         $user = auth()->user();
 
-        $team = Team::where('user_id',$user->user_id)->get();
+         $team_members = TeamMember::where('user_id',$user->user_id)
+            ->select('team_id')
+            ->get();
+
+        $team = Team::whereIn('team_id',$team_members)->get();
+
         if(!isset($team)){
             return response()->json([
                 'error' =>'Whoops, it looks like your team doesn\'t exist'
@@ -48,7 +54,7 @@ class TeamController extends Controller
         
         $team = Team::create( array_merge($validator->validate(),['user_id'=>$user->user_id]) );
         $timeCreated = Crypt::encryptString(date("m-d-Y H:i:s"));
-        $urlTeam = SERVER_NAME.'/invite/'.$team->team_id.'/'.$timeCreated;
+        $urlTeam = '/invite/'.$team->team_id.'/'.$timeCreated;
         Team::where('team_id',$team->team_id)->update(['team_url_invitation'=>$urlTeam]);
         return response()->json([
             'message' =>'Team successfully saved!',

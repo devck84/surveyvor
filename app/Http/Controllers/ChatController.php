@@ -14,12 +14,24 @@ class ChatController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except'=>['getAll']]);
     }
 
     public function getAll()
     {
         return response()->json(['chat'=>Chat::all()],201);
+    }
+
+    public function getById($chat_id)
+    {
+        $user = auth()->user();
+
+        $chat = Chat::where('chat_id',$chat_id)
+            ->where('user_id_from',$user->user_id)
+            ->orWhere('user_id_to',$user->user_id)
+            ->get();
+
+        return response()->json(['chat'=>$chat],201);
     }
 
      public function getByUser()

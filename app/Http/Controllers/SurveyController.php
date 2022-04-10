@@ -39,7 +39,7 @@ class SurveyController extends Controller
 
         $survey = Survey::where('survey_id', $survey_id)
             ->first();
-            
+
         return response()->json(['survey'=>$survey],201);
 
     } 
@@ -142,6 +142,7 @@ class SurveyController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
+            'team_id'=> 'integer|nullable',
             'privacy_id' => 'required|integer',
             'survey_name' => 'required|string|max:220',
             'survey_description' => 'string|nullable',

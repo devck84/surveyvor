@@ -55,12 +55,14 @@ Route::group([
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'teammember'
+    'prefix' => 'teamMember'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\TeamMemberController@getAll');
+	    Route::get('mine', 'App\Http\Controllers\TeamMemberController@getMine');
 	    Route::get('all/{team_id}', 'App\Http\Controllers\TeamMemberController@getByTeam');
 	    Route::post('save', 'App\Http\Controllers\TeamMemberController@save');
-	    Route::post('delete/{team_member_id}', 'App\Http\Controllers\TeamMemberController@delete');
+	    Route::post('saveByInvitation', 'App\Http\Controllers\TeamMemberController@saveInvitation');
+	    Route::post('delete/{team_id}', 'App\Http\Controllers\TeamMemberController@delete');
 });
 
 Route::group([
@@ -149,6 +151,7 @@ Route::group([
     'prefix' => 'chat'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\ChatController@getAll');
+	    Route::get('all/{chat_id}', 'App\Http\Controllers\ChatController@getById');
 	    Route::get('mine', 'App\Http\Controllers\ChatController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\ChatController@save');
 	    Route::post('update/{chat_id}', 'App\Http\Controllers\ChatController@update');
