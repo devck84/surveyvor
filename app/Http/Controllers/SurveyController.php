@@ -83,6 +83,15 @@ class SurveyController extends Controller
         return response()->json(['survey'=>$survey],201);
     }
 
+    public function getPublicByUser($user_id)
+    {   
+        $survey = Survey::where('user_id', $user_id)
+            ->where('privacy_id',2)
+            ->get();
+
+        return response()->json(['survey'=>$survey],201);
+    }
+
 
     public function getByUser()
     {   

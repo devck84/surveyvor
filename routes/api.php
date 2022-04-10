@@ -79,6 +79,7 @@ Route::group([
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\SurveyController@getAll');
 	    Route::get('all/{survey_id}', 'App\Http\Controllers\SurveyController@getById');
+	    Route::get('user/{user_id}', 'App\Http\Controllers\SurveyController@getPublicByUser');
 	    Route::get('mine', 'App\Http\Controllers\SurveyController@getByUser');
 	    Route::get('mine/{survey_id}', 'App\Http\Controllers\SurveyController@getByIdFromMySurveys');
 	    Route::post('save', 'App\Http\Controllers\SurveyController@save');
@@ -152,7 +153,7 @@ Route::group([
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\ChatController@getAll');
 	    Route::get('all/{chat_id}', 'App\Http\Controllers\ChatController@getById');
-	    Route::get('mine', 'App\Http\Controllers\ChatController@getByUser');
+	    Route::get('user/{user_id}', 'App\Http\Controllers\ChatController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\ChatController@save');
 	    Route::post('update/{chat_id}', 'App\Http\Controllers\ChatController@update');
 	    Route::post('delete/{chat_id}', 'App\Http\Controllers\ChatController@delete');
