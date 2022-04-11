@@ -7,9 +7,11 @@ import { Survey } from "./Model/Survey";
 import { useNavigate, useParams } from 'react-router-dom';
 import EditSurveyDetails from "./EditSurveyDetails";
 import EditAppareanceSurvey from "./EditAppareanceSurvey";
+import { Team } from "./Model/Team";
 
 interface IState {
     survey: Survey;
+    team: Array<Team>;
 }
 const EditSurveyComp = () => {
     const { survey_id } = useParams();
@@ -30,8 +32,12 @@ const EditSurveyComp = () => {
             const meRoute: string = baseApiRoute.getBaseRuta() + "survey/mine/"+survey_id;
             axios.get(meRoute, headers).
                 then((d)=>{
-                    setState({survey: d.data.survey});
-                })
+                  const teamRoute: string = baseApiRoute.getBaseRuta() + "team/mine";
+                  axios.get(teamRoute, headers).
+                  then((c)=>{
+                    setState({survey: d.data.survey, team: c.data.teams});
+                  })
+                }).catch((err)=>navigate('/login'))
         }
     },[]);
 
@@ -42,12 +48,13 @@ const EditSurveyComp = () => {
       });
     }
 
-    const saveDetails = (survey_name:string, survey_description:string, privacy_id:number, active:number) =>{
+    const saveDetails = (survey_name:string, survey_description:string, privacy_id:number, active:number, team:number) =>{
         let surveyDetails:IState = state as IState;
         surveyDetails.survey.survey_name = survey_name;
         surveyDetails.survey.survey_description = survey_description;
         surveyDetails.survey.privacy_id = privacy_id;
         surveyDetails.survey.active = active;
+        surveyDetails.survey.team_id = team;
         setState(surveyDetails);
         successMessage("Survey Details Updated","");
     }
@@ -162,7 +169,7 @@ const EditSurveyComp = () => {
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <EditSurveyDetails survey={state?.survey as Survey} surveyDetails={saveDetails}/>
+                <EditSurveyDetails survey={state?.survey as Survey} surveyDetails={saveDetails} teams={state?.team as Array<Team>}/>
               </div>
               <div
                 className="tab-pane fade"

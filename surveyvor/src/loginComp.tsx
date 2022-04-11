@@ -6,6 +6,8 @@ import { Route } from "./Model/Route";
 import { User } from "./Model/User";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import GoogleLogin from "react-google-login";
+import { GoogleLoginButton } from 'ts-react-google-login-component';
 
 const LoginComp = () => {
   const navigate = useNavigate();
@@ -57,6 +59,42 @@ const LoginComp = () => {
       showDenyButton: false,
     });
   };
+
+  const respuestaGoogle = async (res:any) =>{
+    let userLogged = {
+      email: res.profileObj.email,
+      password: res.profileObj.googleId,
+    };
+   
+
+          const baseApiRoute: Route = new Route();
+          const registerRoute: string = baseApiRoute.getBaseRuta() + "auth/login";
+
+          await axios.post(registerRoute, userLogged).then((d)=>{
+              localStorage.clear();
+              localStorage.setItem("token", d.data.token_type+" "+d.data.access_token);
+              successMessage("Succesfuly logged", "");
+          }).catch((e)=>{
+            let userFromGoogle:User = {user_id:0,
+                  email: res.profileObj.email,
+                    password: res.profileObj.googleId,
+                    avatar: res.profileObj.imageUrl,
+                      first_name: res.profileObj.givenName,
+                      family_name: res.profileObj.familyName,
+                      telephone: null,
+                      country_code: "XX"};
+              const saveUserRoute: string = baseApiRoute.getBaseRuta() + "auth/register";
+              axios.post(saveUserRoute, userFromGoogle).then((t)=>{
+                axios.post(registerRoute, userLogged).then((w)=>{
+                  successMessage("Succesfuly registered", "");
+                   
+                });
+               
+                });
+          });
+      navigate("/");
+
+  } 
   return (
     <>
       <div className="row justify-content-center m-0 bodyColor">
@@ -108,33 +146,11 @@ const LoginComp = () => {
                   Not a member? <a href="./register">Register</a>
                 </p>
                 <p>or sign up with:</p>
-                <button
-                  type="button"
-                  className="btn btn-link btn-floating mx-1"
-                >
-                  <i className="fa fa-facebook-f"></i>
-                </button>
+               <GoogleLogin
+          clientId="850092363699-oos5rp52gtul9eqkgulue31hqm5dgv1m.apps.googleusercontent.com"
+          onSuccess={respuestaGoogle}
+        />
 
-                <button
-                  type="button"
-                  className="btn btn-link btn-floating mx-1"
-                >
-                  <i className="fa fa-google"></i>
-                </button>
-
-                <button
-                  type="button"
-                  className="btn btn-link btn-floating mx-1"
-                >
-                  <i className="fa fa-twitter"></i>
-                </button>
-
-                <button
-                  type="button"
-                  className="btn btn-link btn-floating mx-1"
-                >
-                  <i className="fa fa-github"></i>
-                </button>
               </div>
             </form>
           </div>

@@ -147,7 +147,7 @@ const LoginComp = () => {
                 <select className="form-control mt-3" id="floatingCountry"  name="countryCode">
                   {country?.country.map((a, i) => {
                     return (
-                      <option value={a.code}>
+                      <option value={a.code} key={"opt-"+a.code+"-"+i}>
                         {a.dial_code} {a.name}{" "}
                       </option>
                     );

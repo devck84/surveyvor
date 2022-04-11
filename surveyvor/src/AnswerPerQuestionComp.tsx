@@ -71,10 +71,8 @@ const AnswerPerQuestionComp = (props:IProps)=>{
         let stateObj:IState = state as IState;
         stateObj.currentQuestion = stateObj.currentQuestion+1;
         let nqid = props.questions[stateObj.currentQuestion-2].next_question_id;
-        console.log("1-"+nqid);
         if(nqid){
             let index = props.nextQuestions.findIndex(obj => obj.next_question_id == nqid);
-            console.log("2-"+index);
             if(props.nextQuestions[index].defined_answer_id==state?.answers.defined_answer_id){
                 let qindex = props.questions.findIndex(obj => obj.question_id == props.nextQuestions[index].question_id);
                 stateObj.currentQuestion = qindex+1;

@@ -61,11 +61,11 @@ const EditAppareanceSurvey = (props:IProps) => {
                 >
                   <div className="p-5">
                       <div className="mb-3">
-                        <label htmlFor="exampleColorInput" className="form-label">Background Color's Survey</label>
+                        <label htmlFor="exampleColorInput" className="form-label">Background Color&apos;s Survey</label>
                             <input type="color" name="backgroundColor" className="form-control form-control-color" style={{width: "100%"}} id="exampleColorInput1"  title="Choose your color"/>
                         </div>
                         <div className="mb-3">
-                        <label htmlFor="exampleColorInput" className="form-label">Buttons' Color</label>
+                        <label htmlFor="exampleColorInput" className="form-label">Buttons&apos; Color</label>
                             <input type="color" name="buttonColor" className="form-control form-control-color" style={{width: "100%"}} id="exampleColorInput2" title="Choose your color"/>
                         </div>
                         <div className="col-md-1">

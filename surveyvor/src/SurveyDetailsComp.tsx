@@ -50,7 +50,7 @@ const SurveyDetailsComp = (props:IProps) => {
         let inputName: HTMLInputElement = form.survey_name;
         let inputDescription: HTMLInputElement = form.description;
         let inputPrivacy: HTMLInputElement = form.privacy;
-        let inputActive: HTMLInputElement = form.privacy;
+        let inputActive: HTMLInputElement = form.active;
     
         let name: string = inputName.value;
         let description: string = inputDescription.value;
@@ -100,6 +100,7 @@ const SurveyDetailsComp = (props:IProps) => {
             type="checkbox"
             role="switch"
             id="switchRequired"
+            name="active"
            />
           <label
             className="form-check-label"

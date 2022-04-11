@@ -79,7 +79,6 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       definedAnswers: stateObj.definedAnswers,
     });
     props.question.question_type_id = Number(e.target.value);
-    console.log("here:"+props.question.question_type_id);
     props.saveQuestionDetails(i,props.question);
   };
 
@@ -137,7 +136,6 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
     let objDA = stateObj.definedAnswers;
     objDA[index].defined_answer_text = text;
     objDA[index].defined_answer_id = props.index-1;
-    console.log(props.index);
     setQuestionType({
       allQuestionType: stateObj.allQuestionType,
       selectedType: stateObj.selectedType,

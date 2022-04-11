@@ -31,7 +31,6 @@ const AnswerTypeComp = (props: IQuestionByTypeMakerComp) => {
     }
     
     const answerSaveInputObj = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        console.log(props.answer);
         props.answer.survey_answer_text = e.target.value;
         props.saveAnswerDetails(props.answer);
     }

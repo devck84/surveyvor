@@ -36,7 +36,7 @@ const App = () => {
       </div>
 
       <div className="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href="/register">Register</a></p>
         <p>or sign up with:</p>
         <button type="button" className="btn btn-link btn-floating mx-1">
           <i className="fa fa-facebook-f"></i>

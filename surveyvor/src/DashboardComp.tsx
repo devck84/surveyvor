@@ -10,11 +10,16 @@ import FriendListComp from './FriendListComp';
 import { User } from "./Model/User";
 import Swal from "sweetalert2";
 import PendingInvitationsComp from "./PendingInvitationsComp";
+import TeamListViewComp from "./TeamListViewComp";
+import { Team } from "./Model/Team";
+import { TeamMember } from "./Model/TeamMember";
 
 interface IState{
   me: User;
   friends: Array<User>;
   inviters: Array<User>;
+  teams: Array<Team>;
+  teamMembers: Array<TeamMember>;
 }
 
 const DashboardComp = () => {
@@ -49,9 +54,21 @@ const DashboardComp = () => {
                   then((t)=>{
                     let fetchMyInv = async () => {
                       const invRoute: string = baseApiRoute.getBaseRuta() + "invitation/mine";
-                      await axios.get(invRoute, headers).
+                      axios.get(invRoute, headers).
                       then((c)=>{
-                          setState({me: d.data, friends:t.data.friend, inviters: c.data.invitation})
+                        let fetchMyTeam = async () => {
+                          const teamRoute: string = baseApiRoute.getBaseRuta() + "team/mine";
+                          axios.get(teamRoute, headers).
+                          then((j)=>{
+                            let fetchMyTeamembers = async () => {
+                              const teamRoute: string = baseApiRoute.getBaseRuta() + "teamMember/mine";
+                              await axios.get(teamRoute, headers).
+                              then((w)=>{
+                                  setState({me: d.data, friends:t.data.friend, inviters: c.data.invitation, teams: j.data.teams, teamMembers:w.data.team_members});
+                              })}
+                              fetchMyTeamembers();
+                            })}
+                          fetchMyTeam();
                       })}
                       fetchMyInv();
                   })}
@@ -70,8 +87,8 @@ const DashboardComp = () => {
       const token = localStorage.getItem("token") as string;
       const friSaveRoute: string = baseApiRoute.getBaseRuta() + "userFriend/save";
       let userFr: IFriend = {user_friend_id: 0,
-        user_id_from: sender_id,
-        user_id_to: 0,
+        user_id_from: 0,
+        user_id_to: sender_id,
         date_related: ""};
         
       await axios.post(friSaveRoute, userFr,headers).then((c)=>{{
@@ -82,7 +99,7 @@ const DashboardComp = () => {
     axios.post(invDeleteRoute, null,headers).then((c)=>{
       let updateObj:IState = state as IState;
       updateObj.inviters.splice(index,1);
-      setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters});
+      setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters, teams: updateObj.teams, teamMembers:updateObj.teamMembers});
     })
   }
 
@@ -105,7 +122,7 @@ const DashboardComp = () => {
                   axios.post(invDeleteRoute, null,headers).then((c)=>{
                     let updateObj:IState = state as IState;
                     updateObj.inviters.splice(index,1);
-                    setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters});
+                    setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters, teams: updateObj.teams, teamMembers:updateObj.teamMembers});
                     successMessage("Invitation Denied","");
                 }).catch(err=>errorMessage("Whoops!","Something went wrong"));
           }
@@ -149,7 +166,7 @@ const DashboardComp = () => {
             axios.post(surveyDeleteRoute, null,headers).then((c)=>{{
                 let updateObj:IState = state as IState;
                 updateObj.friends.splice(index,1);
-                setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters});
+                setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters, teams: updateObj.teams, teamMembers:updateObj.teamMembers});
                 successMessage("Deleted","Succesfuly deleted");
             }}).catch(err=>errorMessage("Whoops!","Something went wrong"));
         }
@@ -158,6 +175,32 @@ const DashboardComp = () => {
     const logOut = () =>{
       successMessage("See you soon!","");
         navigate("/login");
+    }
+
+    const leaveTeam = async (team_id:number) =>{
+      const baseApiRoute: Route = new Route();
+    const token = localStorage.getItem("token") as string;
+    let headers = {
+        headers: {
+         'Authorization': token,
+        }
+      };
+    await Swal.fire({
+        title: "Are you totally sure?",
+        showDenyButton: true,
+        confirmButtonText: "Yes"
+      }).then((res) => {
+        if (res.isConfirmed) {
+            const teamMemberDeleteRoute: string = baseApiRoute.getBaseRuta() + "teamMember/delete/"+team_id;
+            axios.post(teamMemberDeleteRoute, null,headers).then((c)=>{{
+                let updateObj:IState = state as IState;
+                const index = updateObj.teams.findIndex((item)=> item.team_id == team_id);
+                updateObj.teams.splice(index,1);
+                setState({me: updateObj.me, friends: updateObj.friends, inviters: updateObj.inviters, teams: updateObj.teams, teamMembers:updateObj.teamMembers});
+                successMessage("Deleted","Succesfuly deleted");
+            }}).catch(err=>errorMessage("Whoops!","Something went wrong"));
+        }
+      });
     }
 
   return (
@@ -277,7 +320,7 @@ const DashboardComp = () => {
             role="tabpanel"
             aria-labelledby="v-pills-settings-tab"
           >
-            ...
+            <TeamListViewComp leaveTeam={leaveTeam} teams={state?.teams as Array<Team>} teamMembers={state?.teamMembers as Array<TeamMember>}/>
           </div>
           <div
             className="tab-pane fade"

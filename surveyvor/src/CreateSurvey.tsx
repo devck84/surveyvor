@@ -209,15 +209,12 @@ const CreateSurveyComp = () => {
 
       for (let i = 0; i < surveyDetails.nextQuestions.length; i++) {
         let pos = surveyDetails.nextQuestions[i].defined_answer_id;
-        console.log(pos);
         if(pos){
           surveyDetails.nextQuestions[i].defined_answer_id = surveyDetails.definedAnswers[pos].defined_answer_id;
         
           let posq =surveyDetails.nextQuestions[i].question_id;
-          console.log(posq+"-");
           if(posq!=null){
             surveyDetails.nextQuestions[i].question_id = surveyDetails.questions[posq].question_id;
-            console.log(posq+"--");
             await axios.post(nextQuestRoute,surveyDetails.nextQuestions[i],headers)
             .then(response => {
               surveyDetails.nextQuestions[i] = response.data.nextQuestion as NextQuestion;

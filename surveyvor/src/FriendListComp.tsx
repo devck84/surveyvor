@@ -28,7 +28,7 @@ const FriendListComp = (props: IProps) => {
 
         {props?.friends?.map((f,i) => {
           return (
-            <div className="col-6">
+            <div className="col-6" key={'keyFriend'+f.user_id+'-'+i}>
               <div className="card mt-4">
                 <div className="card-body">
                   <img

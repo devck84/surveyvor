@@ -3,10 +3,12 @@ import { Privacy } from './Model/Privacy';
 import { Route } from "./Model/Route";
 import axios from "axios";
 import { Survey } from "./Model/Survey";
+import { Team } from "./Model/Team";
 
 interface IProps{
     survey: Survey;
     surveyDetails:Function;
+    teams: Array<Team>;
 }
 
 interface IState{
@@ -25,6 +27,9 @@ const EditSurveyDetails = (props:IProps) => {
         switchInput.setAttribute("checked", "");
       }
   }
+  if(props?.survey?.active==1){
+            setChecked();
+  }
 
   useEffect(() => {
       let headers = {
@@ -37,11 +42,10 @@ const EditSurveyDetails = (props:IProps) => {
         let answer = await axios.get(privacyRoute, headers);
           let privacyArr =  answer.data.privacy;
           setPrivacy({allPrivacy: privacyArr});
+          
       }
       fetchMyAPI();
-      if(props?.survey?.active){
-          setChecked();
-      }
+      
       
     },[]);
     
@@ -53,14 +57,16 @@ const EditSurveyDetails = (props:IProps) => {
         let inputName: HTMLInputElement = form.survey_name;
         let inputDescription: HTMLInputElement = form.description;
         let inputPrivacy: HTMLInputElement = form.privacy;
-        let inputActive: HTMLInputElement = form.privacy;
+        let inputActive: HTMLInputElement = form.active;
+        let inputTeam: HTMLInputElement = form.team;
     
         let name: string = inputName.value;
         let description: string = inputDescription.value;
         let privacy: string = inputPrivacy.value;
         let active:number = inputActive.value=="on"?1:0;
+        let team:number = Number(inputTeam.value);
         
-        props.surveyDetails(name, description, privacy, active);
+        props.surveyDetails(name, description, privacy, active, team);
     }
   return (
     <form onSubmit={saveDetails}>
@@ -89,21 +95,46 @@ const EditSurveyDetails = (props:IProps) => {
         <div className="form-floating">
             <select  className="form-control" name="privacy" id="privacy" defaultValue={props?.survey?.privacy_id}>
             {privacyState?.allPrivacy.map((a,i) => {
-               
+               if(a.privacy_id==props?.survey?.privacy_id){
+                return (
+                      
+                  <option key={i+'-opt1'} value={a.privacy_id} selected>
+                      {a.privacy_name}
+                  </option>
+                  );
+               }else{
                     return (
-                        <option key={i+'-opt1'} value={a.privacy_id} selected>
+                      
+                        <option key={i+'-opt1'} value={a.privacy_id} >
                             {a.privacy_name}
                         </option>
                         );
-               
+               }
                     
                   })}
             </select>
             <label htmlFor="floatingDesc">Privacy</label>
         </div>
         <div className="form-floating">
-            <select  className="form-control mt-4" name="privacy" id="privacy" defaultValue={props?.survey?.privacy_id}>
+            <select  className="form-control mt-4" name="team" id="team">
             <option> Select your team (Optional) </option>
+            {props?.teams?.map((a,i) => {
+              if(a.team_id==props?.survey?.team_id){
+                return (
+                      
+                  <option key={i+'-opt-'+a.team_id} value={a.team_id} selected>
+                      {a.team_name}
+                  </option>
+                  );
+               }else{
+                    return (
+                      
+                      <option key={i+'-opt-'+a.team_id} value={a.team_id} >
+                      {a.team_name}
+                  </option>
+                        );
+               }
+            })}
             </select>
             <label htmlFor="floatingDesc">Team</label>
         </div>
@@ -114,6 +145,7 @@ const EditSurveyDetails = (props:IProps) => {
             type="checkbox"
             role="switch"
             id="switchRequired"
+            name="active"
            />
           <label
             className="form-check-label"

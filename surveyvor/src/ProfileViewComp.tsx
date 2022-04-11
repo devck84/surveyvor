@@ -33,7 +33,6 @@ const ProfileViewComp = () =>{
       await axios.get(meRoute, headers).then((s) => {
         let userd = s.data as User;
         setState({ user: userd, countries:respuesta.data });
-        console.log(userd.country_code);
       }).catch(err => navigate("/login"));
 
      
@@ -65,7 +64,6 @@ const ProfileViewComp = () =>{
         avatar: avatar,
         country_code: country
     };
-    console.log(newUser);
     let headers = {
         headers: {
           'Authorization': token
@@ -155,12 +153,12 @@ const ProfileViewComp = () =>{
                 {state?.countries.map((a, i) => {
                     if(a.code!=state.user.country_code){
                     return (
-                      <option value={a.code}>
+                      <option value={a.code} key={'key'+a.code+'-'+i}>
                         {a.dial_code} {a.name}
                       </option>
                     );}else{
                         return (
-                            <option value={a.code} selected>
+                            <option value={a.code} key={'key'+a.code+'-'+i} selected>
                               {a.dial_code} {a.name}
                             </option>);
                     }

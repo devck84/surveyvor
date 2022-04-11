@@ -71,7 +71,8 @@ const SurveyToAnswerComp = () =>{
             navigate("/login");
           }else{
             Swal.fire({
-                title: err.response.error,
+                title: "Whoops! This survey is inaccessible right now",
+                text: 'Contact with the owner of the survey',
                 showDenyButton: false,
                 confirmButtonText: "Exit"
               }).then((res) => {

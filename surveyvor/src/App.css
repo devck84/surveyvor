@@ -244,6 +244,14 @@
   all: unset;
 }
 
+.messageComp{
+  background-image: url("../public/bg.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 93vh;
+}
+
 .gradientBack{
   background-image: linear-gradient(to right, #1f253d, RGB(73, 87, 134));
 }

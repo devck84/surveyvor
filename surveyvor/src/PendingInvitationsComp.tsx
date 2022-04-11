@@ -13,7 +13,7 @@ const PendingInvitationsComp = (props:IProps) =>{
       </h2>
       
     </div>{props?.inviters?.map((f,i)=>{return(
-           <div className="col-6">
+           <div className="col-6" key={"key-"+f.user_id+"-"+i}>
            <div className="card mt-4">
              <div className="card-body">
                <img
