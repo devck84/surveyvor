@@ -30,12 +30,17 @@ class UserFriendController extends Controller
         $allFriends = UserFriend::where('user_id_to',$user->user_id)
         ->select('user_id_from')
             ->get();
+         $allFriends2 =  UserFriend::where('user_id_from',$user->user_id)
+        ->select('user_id_to')
+            ->get();
 
-        $usrFriend = User::whereIn('user_id', $allFriends)
+        $usrFriend2 = User::whereIn('user_id', $allFriends2)
+        ->orWhereIn('user_id', $allFriends)
+            ->where('user_id', '!=', $user->user_id)
             ->select('user_id','email','first_name', 'family_name', 'avatar')
             ->get();
 
-        return response()->json(['friend'=>$usrFriend],201);
+        return response()->json(['friend'=>$usrFriend2],201);
     }
 
     public function save(Request $request)
@@ -43,12 +48,12 @@ class UserFriendController extends Controller
         $usr = auth()->user();
 
         $validator = Validator::make($request->all(), [
-            'user_id_from' => 'required|integer',
+            'user_id_to' => 'required|integer',
         ]);
         if($validator->fails())
             return response()->json($validator->errors()->toJson(),400);
         
-        $userFriend = UserFriend::create(array_merge($validator->validate(), ['user_id_to'=>$usr->user_id, 'date_related'=>now()]));
+        $userFriend = UserFriend::create(array_merge($validator->validate(), ['user_id_from'=>$usr->user_id, 'date_related'=>now()]));
 
         return response()->json([
             'message' =>'User Friend successfully saved!',
