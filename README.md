@@ -50,48 +50,54 @@ La estimación aproximada de este desarrollo es de 48 días.
 
 Fecha de inicio: 11/03/2022
 <table>
-  <tr>
-    <th>Actividad
-<th>Fecha Inicio</th>
-<th>Fecha Fin</th>
-<th>Días / horas</th>
-  </tr>
-  <tr>
-    <td>Base de datos</td>
-<td>11/03/2022 </td>
-<td>14/03/2022</td>
-<td>2 días / 6 horas</td>
-  </tr>
-  <tr>
-    <td>API Securizada</td>
-<td>15/03/2022</td>
-<td>24/03/2022</td>
-<td>9 días  / 27 horas</td>
-  </tr>
-  <tr>
-    <td>Aplicación cliente React</td>
-<td>25/03/2022</td>
-<td>07/04/2022</td>
-<td>10 días  / 30 horas</td>
-  </tr>
-  <tr>
-    <td>Aplicación cliente Android</td>
-<td>08/04/2022</td>
-<td>23/04/2022</td>
-<td>12 días  / 36 horas</td>
-  </tr>
-  <tr>
-    <td>Aplicación cliente Flutter</td>
-<td>24/04/2022</td>
-<td>10/05/2022</td>
-<td>12 días  / 36 horas</td>
-  </tr>
-  <tr>
-    <td>Manuales</td>
-<td>11/05/2022</td>
-<td>16/05/2022</td>
-<td>3 días  / 9 horas</td>
-  </tr>
+    <tr>
+        <th>Actividad
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Días / horas</th>
+    </tr>
+    <tr>
+        <td>Base de datos</td>
+        <td>11/03/2022 </td>
+        <td>14/03/2022</td>
+        <td>2 días / 6 horas</td>
+    </tr>
+    <tr>
+        <td>API Securizada</td>
+        <td>15/03/2022</td>
+        <td>24/03/2022</td>
+        <td>9 días / 27 horas</td>
+    </tr>
+    <tr>
+        <td>Aplicación cliente React</td>
+        <td>25/03/2022</td>
+        <td>07/04/2022</td>
+        <td>10 días / 30 horas</td>
+    </tr>
+    <tr>
+        <td>Aplicación cliente Android</td>
+        <td>08/04/2022</td>
+        <td>28/04/2022</td>
+        <td>16 días / 48 horas</td>
+    </tr>
+    <tr>
+        <td>Cambios React Tras Revisión</td>
+        <td>29/03/2022</td>
+        <td>02/04/2022</td>
+        <td>2 días / 6 horas</td>
+    </tr>
+    <tr>
+        <td>Aplicación cliente Flutter</td>
+        <td>03/04/2022</td>
+        <td>13/05/2022</td>
+        <td>10 días / 30 horas horas</td>
+    </tr>
+    <tr>
+        <td>Manuales</td>
+        <td>13/05/2022</td>
+        <td>23/05/2022</td>
+        <td>10 días / 30 horas</td>
+    </tr>
 </table>
 
 Fecha de fin: 17/05/2022
