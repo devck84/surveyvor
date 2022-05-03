@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { User } from "./Model/User";
 import { Country } from "./Model/Country";
+import { stat } from "fs";
 
 interface IState{
     user: User;
@@ -101,11 +102,17 @@ const ProfileViewComp = () =>{
   
     return(<><form onSubmit={editRegister}>
         <div className="row m-0">
-        
         <div className="col-12">
-        <h2 className="mb-4 mt-4" style={{display: 'inline-block'}}>Your <span style={{color: "#d36b2ad5"}}>Profile</span></h2>
-            
-        </div>
+                <h2 className="mb-4 mt-4" style={{display: 'inline-block'}}>Your <span style={{color: "#d36b2ad5"}}>Profile</span></h2>
+                <button
+                type="button"
+                 onClick={() => {navigator.clipboard.writeText(window.location.href+"profile/"+state?.user.user_id)}}
+                  className="btn btn-outline-primary mb-4 mt-4"
+                  style={{ float: "right", display: "inline-block" }}
+                >
+                  Share my profile <i className="fa fa-link"></i>
+                </button>
+              </div>
         
         <div className="col-6">
         <div className="form-floating mb-3">

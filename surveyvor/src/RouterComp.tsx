@@ -19,13 +19,14 @@ import Home from './pages';
 import MyApp from './pages/_app';
 import styles from "./styles/Home.module.css";
 import SocketsProvider, { useSockets } from "./context/socket.context";
+import SurveyUserAnswersComp from './SurveyUserAnswersComp';
 
 // @ts-ignore
 export const RouterComponent = () => {
     return (
         
         <BrowserRouter>
-            <Navbar /><SocketsProvider>
+            <Navbar />
             <Routes>
                 <Route path="/login" element={<LoginComp />} />
                 <Route path="/register" element={<RegisterComponent />} />
@@ -37,11 +38,12 @@ export const RouterComponent = () => {
                 <Route path="/survey/:survey_id/edit" element={<EditSurveyComp />} />
                 <Route path="/team/create" element={<CreateTeamComp />} />
                 <Route path="/invite/:team_id/:token" element={<TeamInvitation />} />
-                <Route path="/chat" element={<div className="messageComp"><div className={styles.container}>
+                <Route path="/survey/:survey_id/answers" element={<SurveyUserAnswersComp />} />
+                <Route path="/chat" element={<SocketsProvider><div className="messageComp"><div className={styles.container}>
           <RoomsContainer />
           <MessagesContainer />
-        </div></div>} />
-            </Routes></SocketsProvider>
+        </div></div></SocketsProvider>} />
+            </Routes>
         </BrowserRouter>
         
     );

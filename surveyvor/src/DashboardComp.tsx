@@ -4,7 +4,7 @@ import { IFriend } from "./Model/UserFriend";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Route } from "./Model/Route";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProfileViewComp from "./ProfileViewComp";
 import FriendListComp from './FriendListComp';
 import { User } from "./Model/User";
@@ -274,6 +274,13 @@ const DashboardComp = () => {
           >
             <i className="fa fa-bell dashIcon"></i>Pending
           </button>
+          <Link
+            className="nav-link dashButton m-3 mt-1 mb-1"
+            to="/chat"
+            role="tab"
+          >
+            <i className="fa fa-commenting dashIcon"></i> Chat
+          </Link>
 
           <button
             className="nav-link dashButton"

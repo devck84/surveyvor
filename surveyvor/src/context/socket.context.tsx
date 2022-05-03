@@ -37,9 +37,6 @@ function SocketsProvider(props: any) {
 
   useEffect(() => {
     const token = localStorage.getItem("token") as string;
-    window.onfocus = function () {
-      document.title = "Surveyvor Chat";
-    };
     let headers = {
       headers: {
           'Authorization': token

@@ -98,10 +98,20 @@ const SurveyListComp = () => {
                     <hr />
                   Created: {s.date_created}
                   <span style={{ float: "right" }}>
-                
+
+
+                <a
+                    className="btn btn-block btn-outline-secondary me-2"
+                   href={"/survey/"+s.survey_id+"/answers"}
+                   target="_blank"
+                   rel="noreferrer"
+                  >
+                    <i className="fa fa-book"></i>
+                  </a>
                  
                   <button
                     className="btn btn-block btn-outline-secondary"
+                    
                     onClick={()=>{deleteSurvey(i,s.survey_id)}}
                   >
                     <i className="fa fa-trash"></i>

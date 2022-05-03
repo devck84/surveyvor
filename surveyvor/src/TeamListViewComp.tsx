@@ -67,7 +67,7 @@ const TeamListViewComp = (props: IProps) => {
                         </ol>
 
                         <button
-                        onClick={() => {navigator.clipboard.writeText(team?.team_url_invitation)}}
+                        onClick={() => {navigator.clipboard.writeText(window.location.href+".."+team?.team_url_invitation)}}
                       className="btn btn-block btn-outline-secondary mt-1" style={{marginLeft: '10px'}}
                     >
                       <i className="fa fa-link"></i>
