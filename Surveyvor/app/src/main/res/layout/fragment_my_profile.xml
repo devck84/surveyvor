@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".ui.profile.MyProfileFragment">
+    <ScrollView
+            android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activity.RegisterActivity"
+                android:gravity="center_horizontal">
+
+            <TextView
+                    android:id="@+id/dni_info_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Profile"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textSize="35dp"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="40dp"/>
+
+            <ImageView
+                    android:layout_width="450px"
+                    android:layout_height="450px" app:srcCompat="@drawable/epstmlgv1" android:id="@+id/imageView" android:layout_marginTop="30dp"/>
+
+            <Button
+                    android:text="Share Profile"
+                    android:layout_width="154dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content" android:id="@+id/shareProfileButton"/>
+            <EditText
+                    android:id="@+id/email_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="none"
+                    android:hint="Email"
+                    android:enabled="false"
+                    android:layout_marginTop="20dp"
+              />
+
+            <EditText
+                    android:id="@+id/first_name_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:hint="First Name"
+                    android:layout_marginTop="20dp"/>
+
+            <EditText
+                    android:id="@+id/family_name_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:hint="Family Name"
+                    android:layout_marginTop="20dp"/>
+
+            <EditText
+                    android:id="@+id/telephone_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:hint="Telephone"
+                    android:layout_marginTop="20dp"/>
+
+            <EditText
+                    android:id="@+id/avatar_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textUri"
+                    android:hint="Avatar Link"
+                    android:layout_marginTop="20dp"/>
+
+            <Spinner
+                    android:id="@+id/country_code_my_profile"
+                    android:layout_width="329dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+
+            <Button
+                    android:id="@+id/button_save_details"
+                    android:layout_width="331dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="60dp"
+                    android:text="Save Details"/>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

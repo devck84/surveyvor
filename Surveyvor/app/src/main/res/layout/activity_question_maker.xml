@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+    <LinearLayout
+            android:id="@+id/questions_comp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activity.RegisterActivity"
+            android:gravity="center_horizontal">
+
+        <TextView
+                android:id="@+id/title_question_comp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Questions"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"/>
+
+        <EditText
+                android:id="@+id/question_text_maker"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Question Text"
+                android:layout_marginTop="20dp"/>
+
+        <Spinner
+                android:id="@+id/question_type_maker"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"/>
+
+        <Button
+                android:text="Add Defined Answer"
+                android:layout_width="297dp"
+                android:layout_marginTop="20dp"
+                android:onClick="addQuest"
+                android:layout_height="wrap_content" android:id="@+id/add_answer"/>
+        <EditText
+                android:id="@+id/sequence_number_maker"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Sequence Number"
+                android:layout_marginTop="20dp"/>
+
+        <Switch
+                android:text="Required"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                android:layout_width="330dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content" android:id="@+id/switch_required_maker"/>
+        <Button
+                android:text="Next Question"
+                android:layout_width="315dp"
+                android:layout_marginTop="90dp"
+                android:onClick="saveQuestion"
+                android:layout_height="62dp" android:id="@+id/button3"/>
+
+        <Button
+                android:id="@+id/button2"
+                android:layout_width="145dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="20dp"
+                android:background="#20000000"
+                android:onClick="endSurvey"
+                android:text="End Survey"
+                android:textColor="#fff"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  tools:context=".activity.SurveyDetailsActivity"
+                  android:gravity="center_horizontal">
+        <TextView
+                android:id="@+id/dni_info_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create New Survey"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"/>
+
+        <EditText
+                android:id="@+id/survey_name_details"
+                android:layout_width="329dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Survey Name"
+                android:layout_marginTop="60dp"/>
+
+    <EditText
+            android:id="@+id/survey_description_details"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:hint="Survey Description"
+            android:layout_marginTop="20dp"/>
+
+    <Spinner
+            android:id="@+id/privacy_details"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+
+    <TextView
+            android:text="Survey's Background Color"
+            android:layout_width="327dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView2"/>
+
+    <Button
+            android:id="@+id/button_background_color_details"
+            android:layout_width="315dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:text=""/>
+    <TextView
+            android:text="Survey Buttons' Color"
+            android:layout_width="322dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView3"/>
+    <Button
+            android:id="@+id/button_button_color_details"
+            android:layout_width="315dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:text=""/>
+
+
+        <Button
+                android:id="@+id/button"
+                android:layout_width="331dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="120dp"
+                android:onClick="createQuests"
+                android:text="Save Details"/>
+    </LinearLayout>

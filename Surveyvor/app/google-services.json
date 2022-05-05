@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "686075669218",
+    "project_id": "surveyvorchat",
+    "storage_bucket": "surveyvorchat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686075669218:android:22fec1bad104204b168cbb",
+        "android_client_info": {
+          "package_name": "es.system.dc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686075669218-tngc8ub5db81p5668s5n1r8bgtr487n1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.system.dc",
+            "certificate_hash": "460e990f6f2c301e77929e4d23d07d7a9b7f39fc"
+          }
+        },
+        {
+          "client_id": "686075669218-tlnn4h072qcqoie1lh0j1tle914c2ftl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1RSR8ct0qhnT5FaS_KRHDkJJ8F-KFomM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686075669218-tlnn4h072qcqoie1lh0j1tle914c2ftl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

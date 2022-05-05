@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+    <LinearLayout
+            android:id="@+id/answer_question_comp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activity.RegisterActivity"
+            android:gravity="center_horizontal">
+
+        <TextView
+                android:id="@+id/survey_name_questanswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Survey Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"/>
+
+        <TextView
+                android:id="@+id/question_name_questanswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Question Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"/>
+
+
+        <Button
+                android:id="@+id/button_next_question"
+                android:layout_width="331dp"
+                android:layout_height="62dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="60dp"
+                android:onClick="nextQuestion"
+                android:text="Next"/>
+    </LinearLayout>
+</ScrollView>
