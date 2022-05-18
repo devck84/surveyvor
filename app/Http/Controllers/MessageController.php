@@ -22,6 +22,77 @@ class MessageController extends Controller
         return response()->json(['message'=>Message::all()],201);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/message/allByChat/{chat_id}",
+     *      operationId="getMessagesByChat",
+     *      tags={"Message"},
+     *      summary="Get all the messages from a chat",
+     *      description="Returns a list of messages",
+     *      @OA\Parameter(
+     *         name="chat_id",
+     *         in="path",
+     *         description="Search by chat_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="message",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="message_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="receiver_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sender_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="chat_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="message_text",
+     *                         type="string",
+     *                         example="hello there!"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="date_sent",
+     *                         type="string",
+     *                         example="17/05/2022"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="message_seen",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
      public function getByChat($chat_id)
     {
         $user = auth()->user();
@@ -34,6 +105,92 @@ class MessageController extends Controller
         return response()->json(['message'=>$allMessages],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/message/save",
+     *      operationId="saveMessage",
+     *      tags={"Message"},
+     *      summary="Create a new Message",
+     *      description="Returns the generated Message",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="receiver_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="chat_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="message_text",
+     *                         type="string",
+     *                         example="hello there!"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="message_data",
+     *                type="array",
+     *                @OA\Items(
+     *                       @OA\Property(
+     *                         property="message_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="receiver_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sender_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="chat_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="message_text",
+     *                         type="string",
+     *                         example="hello there!"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="date_sent",
+     *                         type="string",
+     *                         example="17/05/2022"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="message_seen",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function save(Request $request)
     {
         $user = auth()->user();
@@ -54,6 +211,26 @@ class MessageController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/message/updateStatus/{message_id}",
+     *      operationId="updateMessage",
+     *      tags={"Message"},
+     *      summary="Update a Message",
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function update($message_id){
         $user = auth()->user();
 

@@ -24,6 +24,58 @@ class NextQuestionController extends Controller
         return response()->json(['nextQuestion'=>NextQuestion::all()],201);
     }
 
+     /**
+     * @OA\Get(
+     *      path="/api/nextQuestion/all/{survey_id}",
+     *      operationId="getNextQuestionsFromSurvey",
+     *      tags={"Next Question"},
+     *      summary="Get all the Next Question from a survey",
+     *      description="Returns a list of Next Questions",
+     *      @OA\Parameter(
+     *         name="survey_id",
+     *         in="path",
+     *         description="Search by survey_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="definedAnswer",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="defined_answer_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function getBySurvey($survey_id)
     {   
         $questionIds = Question::where('survey_id',$survey_id)
@@ -51,6 +103,67 @@ class NextQuestionController extends Controller
         return $qArr;
     }
 
+     /**
+     * @OA\Post(
+     *      path="/api/nextQuestion/save",
+     *      operationId="saveNextQuestion",
+     *      tags={"Next Question"},
+     *      summary="Create a new Next Question",
+     *      description="Returns the generated Next Question",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="defined_answer_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                       @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="defined_answer_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function save(Request $request)
     {
         $questionIds = $this->getQuestionIds();
@@ -77,6 +190,48 @@ class NextQuestionController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/nextQuestion/update/{next_question_id}",
+     *      operationId="updateNextQuestion",
+     *      tags={"Next Question"},
+     *      summary="Update a Next Question",
+     *      @OA\Parameter(
+     *         name="next_question_id",
+     *         in="path",
+     *         description="Search by next_question_id",
+     *         required=true,
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="defined_answer_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function update($next_question_id, Request $request){
        $questionIds = $this->getQuestionIds();
 
@@ -106,6 +261,32 @@ class NextQuestionController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/nextQuestion/delete/{next_question_id}",
+     *      operationId="deleteNextQuestion",
+     *      tags={"Next Question"},
+     *      summary="Delete a Next Question",
+     *      @OA\Parameter(
+     *         name="next_question_id",
+     *         in="path",
+     *         description="Search by next_question_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function delete($next_question_id){
         $questionIds = $this->getQuestionIds();
 

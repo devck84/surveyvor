@@ -23,7 +23,6 @@ Route::group([
     'prefix' => 'auth'
 	], function ($router) {
 	    Route::post('login', 'App\Http\Controllers\AuthController@login');
-	    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
 	    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
 	    Route::get('me', 'App\Http\Controllers\AuthController@me');
 	    Route::get('all/{user_id}', 'App\Http\Controllers\AuthController@publicData');
@@ -47,6 +46,7 @@ Route::group([
     'prefix' => 'team'
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\TeamController@getAll');
+	    Route::get('all/{team_id}', 'App\Http\Controllers\TeamController@getById');
 	    Route::get('mine', 'App\Http\Controllers\TeamController@getByUser');
 	    Route::post('save', 'App\Http\Controllers\TeamController@save');
 	    Route::post('delete/{team_id}', 'App\Http\Controllers\TeamController@delete');
@@ -123,6 +123,7 @@ Route::group([
 	], function ($router) {
 	    Route::get('all', 'App\Http\Controllers\UserAnswerController@getAll');
 	    Route::get('all/{question_id}', 'App\Http\Controllers\UserAnswerController@getByQuestion');
+	    Route::get('survey/{survey_id}', 'App\Http\Controllers\UserAnswerController@getBySurvey');
 	    Route::post('save', 'App\Http\Controllers\UserAnswerController@save');
 	    Route::post('delete/{next_question_id}', 'App\Http\Controllers\UserAnswerController@delete');
 });
@@ -168,4 +169,11 @@ Route::group([
 	    Route::get('allByChat', 'App\Http\Controllers\MessageController@getByChat');
 	    Route::post('save', 'App\Http\Controllers\MessageController@save');
 	    Route::post('updateStatus/{message_id}', 'App\Http\Controllers\MessageController@update');
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'stats'
+	], function ($router) {
+	    Route::get('answerPerQuestion/{question_id}', 'App\Http\Controllers\StatsController@getByQuestion');
 });

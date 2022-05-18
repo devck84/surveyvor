@@ -23,6 +23,76 @@ class TeamMemberController extends Controller
         return response()->json(['team_members'=>TeamMember::all()],201);
     }
 
+     /**
+     * @OA\Get(
+     *      path="/api/teamMember/mine",
+     *      operationId="getTeamMembers",
+     *      tags={"Team Member"},
+     *      summary="Get all the team members related to you",
+     *      description="Returns a list of the team members related to you",
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="teamMember",
+     *                type="array",
+     *                @OA\Items(
+     *              @OA\Property(
+     *                 property="user_id",
+     *                 type="number",
+     *                 example="1",
+     *             ),
+     *             @OA\Property(
+     *                 property="first_name",
+     *                 type="string",
+     *                 example="Dereck",
+     *             ),
+     *              @OA\Property(
+     *                 property="family_name",
+     *                 type="string",
+     *                 example="Cepeda",
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 example="test@surveyvor.com",
+     *             ),
+     *              @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 example="password1234",
+     *             ),
+     *              @OA\Property(
+     *                 property="country_code",
+     *                 type="string",
+     *                 example="ES",
+     *             ),
+     *              @OA\Property(
+     *                 property="avatar",
+     *                 type="string",
+     *                 example="www.myimageprofile.com",
+     *             ),
+     *              @OA\Property(
+     *                 property="telephone",
+     *                 type="number",
+     *                 example="12345678",
+     *             ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function getMine()
     {
         $user = auth()->user();
@@ -41,24 +111,157 @@ class TeamMemberController extends Controller
         return response()->json(['team_members'=>$allMembers],201);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/teamMember/all/{team_id}",
+     *      operationId="getTeamMembersByTeam",
+     *      tags={"Team Member"},
+     *      summary="Get all the team members by team_id provided",
+     *      description="Returns a list of the team members by team_id provided",
+     *      @OA\Parameter(
+     *         name="team_id",
+     *         in="path",
+     *         description="Search by team_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="teamMember",
+     *                type="array",
+     *                @OA\Items(
+     *              @OA\Property(
+     *                 property="user_id",
+     *                 type="number",
+     *                 example="1",
+     *             ),
+     *             @OA\Property(
+     *                 property="first_name",
+     *                 type="string",
+     *                 example="Dereck",
+     *             ),
+     *              @OA\Property(
+     *                 property="family_name",
+     *                 type="string",
+     *                 example="Cepeda",
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 example="test@surveyvor.com",
+     *             ),
+     *              @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 example="password1234",
+     *             ),
+     *              @OA\Property(
+     *                 property="country_code",
+     *                 type="string",
+     *                 example="ES",
+     *             ),
+     *              @OA\Property(
+     *                 property="avatar",
+     *                 type="string",
+     *                 example="www.myimageprofile.com",
+     *             ),
+     *              @OA\Property(
+     *                 property="telephone",
+     *                 type="number",
+     *                 example="12345678",
+     *             ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function getByTeam($team_id)
     {
-        $user = auth()->user();
 
-        $team = Team::where([
-                ['team_id',$team_id],
-                ['user_id',$user->user_id]
-            ])
-            ->first();
+        $allMembers = User::join('TeamMember', 'user.user_id', '=', 'TeamMember.user_id')
+            ->where('TeamMember.team_id', $team_id)
+            ->select('User.*')
+            ->get();
+        
 
-        if(isset($team)){
-            return response()->json(['error'=>'It looks like it is not your team'],401);
-        }
-
-        $team_members = TeamMember::where('team_id',$team->team_id)->get();
-        return response()->json(['team_members'=>$team_members],201);
+        return response()->json(['team_members'=>$allMembers],201);
     }
 
+
+    /**
+     * @OA\Post(
+     *      path="/api/teamMember/save",
+     *      operationId="saveTeamMember",
+     *      tags={"Team Member"},
+     *      summary="Create a new Team Member",
+     *      description="Returns the generated Team Member",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass Team Member details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="teamMember",
+     *                type="array",
+     *                @OA\Items(
+      *                     @OA\Property(
+     *                         property="team_member_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="date_registered",
+     *                         type="string",
+     *                         example="17/05/2022"
+     *                      ),
+     *                     
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function save(Request $request)
     {  
         $user = auth()->user();
@@ -75,15 +278,91 @@ class TeamMemberController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/teamMember/saveByInvitation",
+     *      operationId="saveByInvitation",
+     *      tags={"Team Member"},
+     *      summary="Create a new Team Member by invitation link",
+     *      description="Returns the generated Team Member",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass Invitation details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="teamMember",
+     *                type="array",
+     *                @OA\Items(
+      *                     @OA\Property(
+     *                         property="team_member_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="date_registered",
+     *                         type="string",
+     *                         example="17/05/2022"
+     *                      ),
+     *                     
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Data Passed Error",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function saveInvitation(Request $request)
     {  
         $user = auth()->user();
+
+        $teamids = getTeamIds();
+
+        if(in_array($request->team_id,$teamids)){
+         return response()->json([
+                    'error' =>'Whoops, something is not okay over here'
+                ],400);
+        }
 
         $likeClausule = '%'.$request->team_id.'/'.$request->token;
 
         $team = Team::where('team_url_invitation', 'like', $likeClausule)
             ->select('team_id')
             ->first();
+
+
 
         if($team->team_id != $request->team_id)
              return response()->json([
@@ -104,6 +383,41 @@ class TeamMemberController extends Controller
         ],201);
     }
 
+     /**
+     * @OA\Post(
+     *      path="/api/teamMember/delete",
+     *      operationId="deleteByTeam",
+     *      tags={"Team Member"},
+     *      summary="Delete a Team Member by Team Id and User (by token provided)",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass Team details to leave",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Data Passed Error",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function delete($team_id){
         $user = auth()->user();
 

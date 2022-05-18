@@ -23,7 +23,129 @@ class TeamController extends Controller
     {        
         return response()->json(['teams'=>Team::all()],201);
     }
+    
+    /**
+     * @OA\Get(
+     *      path="/api/team/all/{team_id}",
+     *      operationId="getTeam",
+     *      tags={"Team"},
+     *      summary="Get a team from mine ones",
+     *      description="Returns a team",
+     *      @OA\Parameter(
+     *         name="team_id",
+     *         in="path",
+     *         description="Search by team_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_name",
+     *                         type="string",
+     *                         example="team name"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_description",
+     *                         type="string",
+     *                         example="my team desc"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_url_invitation",
+     *                         type="string",
+     *                         example="www.invite.com"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
+    public function getById($team_id)
+    {        
+        $team = Team::where('team_id',$team_id)->first();
+        return response()->json(['team'=>$team],201);
+    }
 
+    /**
+     * @OA\Get(
+     *      path="/api/team/mine",
+     *      operationId="getMyTeams",
+     *      tags={"Team"},
+     *      summary="Get all my teams",
+     *      description="Returns my teams",
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_name",
+     *                         type="string",
+     *                         example="team name"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_description",
+     *                         type="string",
+     *                         example="my team desc"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_url_invitation",
+     *                         type="string",
+     *                         example="www.invite.com"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function getByUser()
     {   
         $user = auth()->user();
@@ -41,7 +163,79 @@ class TeamController extends Controller
         }
         return response()->json(['teams'=>$team],201);
     }
+   
 
+    /**
+     * @OA\Post(
+     *      path="/api/team/save",
+     *      operationId="saveTeam",
+     *      tags={"Team"},
+     *      summary="Create a new Team",
+     *      description="Returns the generated Team",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass team details",
+     *  @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="team_name",
+     *                         type="string",
+     *                         example="team name"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_description",
+     *                         type="string",
+     *                         example="my team desc"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="team_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="user_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_name",
+     *                         type="string",
+     *                         example="team name"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_description",
+     *                         type="string",
+     *                         example="my team desc"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_url_invitation",
+     *                         type="string",
+     *                         example="www.invite.com"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function save(Request $request)
     {
         $user = auth()->user();
@@ -62,6 +256,49 @@ class TeamController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/team/update/{team_id}",
+     *      operationId="updateTeam",
+     *      tags={"Team"},
+     *      summary="Update a Team",
+     *      @OA\Parameter(
+     *         name="team_id",
+     *         in="path",
+     *         description="Search by team_id",
+     *         required=true,
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass team details",
+     *  @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="team_name",
+     *                         type="string",
+     *                         example="team name"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="team_description",
+     *                         type="string",
+     *                         example="my team desc"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *      
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function update($team_id, Request $request){
         $teamIds = getTeamIds();
         if(!in_array($team_id,$teamIds)){
@@ -91,7 +328,32 @@ class TeamController extends Controller
                 'error' =>'Whoops, something went wrong!'
             ],201);
     }
-
+     /**
+     * @OA\Post(
+     *      path="/api/team/delete/{team_id}",
+     *      operationId="deleteTeam",
+     *      tags={"Team"},
+     *      summary="Delete a Team",
+     *      @OA\Parameter(
+     *         name="team_id",
+     *         in="path",
+     *         description="Search by team_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function delete($team_id){
         $teamIds = getTeamIds();
         if(!in_array($team_id,$teamIds)){

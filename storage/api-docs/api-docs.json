@@ -1,0 +1,3228 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Surveyvor App - Technical Manual",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get a JWT via given credentials",
+                "description": "Returns a \\Illuminate\\Http\\JsonResponse with the generated token",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/auth/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get the authenticated User",
+                "description": "Returns logged user data by authorization token passed",
+                "operationId": "getLoggedUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "Dereck"
+                                        },
+                                        "family_name": {
+                                            "type": "string",
+                                            "example": "Cepeda"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "test@surveyvor.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "password1234"
+                                        },
+                                        "country_code": {
+                                            "type": "string",
+                                            "example": "ES"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "example": "www.myimageprofile.com"
+                                        },
+                                        "telephone": {
+                                            "type": "number",
+                                            "example": "12345678"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Create a new User",
+                "description": "Returns the generated User",
+                "operationId": "register",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Dereck"
+                                    },
+                                    "family_name": {
+                                        "type": "string",
+                                        "example": "Cepeda"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@surveyvor.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password1234"
+                                    },
+                                    "country_code": {
+                                        "type": "string",
+                                        "example": "ES"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "example": "www.myimageprofile.com"
+                                    },
+                                    "telephone": {
+                                        "type": "number",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "Dereck"
+                                        },
+                                        "family_name": {
+                                            "type": "string",
+                                            "example": "Cepeda"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "test@surveyvor.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "password1234"
+                                        },
+                                        "country_code": {
+                                            "type": "string",
+                                            "example": "ES"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "example": "www.myimageprofile.com"
+                                        },
+                                        "telephone": {
+                                            "type": "number",
+                                            "example": "12345678"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/auth/all/{user_id}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get a User's public data",
+                "description": "Returns a User's public data",
+                "operationId": "getPublicDataFromUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "Search by user_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "first_name": {
+                                            "type": "string",
+                                            "example": "Dereck"
+                                        },
+                                        "family_name": {
+                                            "type": "string",
+                                            "example": "Cepeda"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "test@surveyvor.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "password1234"
+                                        },
+                                        "country_code": {
+                                            "type": "string",
+                                            "example": "ES"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "example": "www.myimageprofile.com"
+                                        },
+                                        "telephone": {
+                                            "type": "number",
+                                            "example": "12345678"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/auth/update/{user_id}": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update an existing User",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "Search by user_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Dereck"
+                                    },
+                                    "family_name": {
+                                        "type": "string",
+                                        "example": "Cepeda"
+                                    },
+                                    "country_code": {
+                                        "type": "string",
+                                        "example": "ES"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "example": "www.myimageprofile.com"
+                                    },
+                                    "telephone": {
+                                        "type": "number",
+                                        "example": "12345678"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/all/{chat_id}": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get a chat by chat_id",
+                "description": "Returns a chat",
+                "operationId": "getFromChats",
+                "parameters": [
+                    {
+                        "name": "chat_id",
+                        "in": "path",
+                        "description": "Search by chat_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "chat_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "user_id_from": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "user_id_to": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "active": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/mine": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get my chats",
+                "description": "Returns my chats",
+                "operationId": "getMyChats",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "chat_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "active": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Get a chat by user_id (user_id_from)",
+                "description": "Returns a chat by user_id (user_id_from)",
+                "operationId": "getChatPerSender",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "chat": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "chat_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "active": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/save": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Create a new Chat",
+                "description": "Returns the generated Chat",
+                "operationId": "saveChat",
+                "requestBody": {
+                    "description": "Pass Chat details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id_from": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "user_id_to": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "active": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Chat": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "chat_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "active": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/update/{chat_id}": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Update a Chat",
+                "operationId": "updateChat",
+                "requestBody": {
+                    "description": "Pass Chat details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id_from": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "user_id_to": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "active": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/chat/delete/{chat_id}": {
+            "post": {
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Delete a Chat",
+                "operationId": "deleteChat",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/definedAnswer/all/{survey_id}": {
+            "get": {
+                "tags": [
+                    "Defined Answer"
+                ],
+                "summary": "Get all the defined Answers from a survey",
+                "description": "Returns a list of questions",
+                "operationId": "getDefinedAnswersFromSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "definedAnswer": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "defined_answer_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "defined_answer_text": {
+                                                        "type": "string",
+                                                        "example": "example text"
+                                                    },
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/definedAnswer/save": {
+            "post": {
+                "tags": [
+                    "Defined Answer"
+                ],
+                "summary": "Save a defined Answer",
+                "description": "Returns the generated Defined Answer",
+                "operationId": "saveDefinedAnswer",
+                "requestBody": {
+                    "description": "Pass defined Answer details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "defined_answer_text": {
+                                        "type": "string",
+                                        "example": "example text"
+                                    },
+                                    "question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "definedAnswer": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "defined_answer_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "defined_answer_text": {
+                                                        "type": "string",
+                                                        "example": "example text"
+                                                    },
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/definedAnswer/update/{defined_answer_id}": {
+            "post": {
+                "tags": [
+                    "Defined Answer"
+                ],
+                "summary": "Update a defined Answer",
+                "operationId": "updateDefinedAnswer",
+                "parameters": [
+                    {
+                        "name": "defined_answer_id",
+                        "in": "path",
+                        "description": "Search by defined_answer_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass defined Answer details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "defined_answer_text": {
+                                        "type": "string",
+                                        "example": "example text"
+                                    },
+                                    "question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/definedAnswer/delete/{defined_answer_id}": {
+            "post": {
+                "tags": [
+                    "Defined Answer"
+                ],
+                "summary": "Delete a defined Answer",
+                "operationId": "deleteDefinedAnswer",
+                "parameters": [
+                    {
+                        "name": "defined_answer_id",
+                        "in": "path",
+                        "description": "Search by defined_answer_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/invitation/mine": {
+            "get": {
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Get all the invitations of the logged user",
+                "description": "Returns all the invitations",
+                "operationId": "getMyInvitations",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "invitation": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "invitation_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sender_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "receiver_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_sent": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/invitation/save": {
+            "post": {
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Create an Invitation",
+                "description": "Returns the generated Invitation",
+                "operationId": "saveInvitation",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "sender_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "receiver_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "date_sent": {
+                                        "type": "string",
+                                        "example": "17/05/2022"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "invitation_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sender_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "receiver_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_sent": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/invitation/delete/{sender_id}": {
+            "post": {
+                "tags": [
+                    "Invitation"
+                ],
+                "summary": "Delete from your Invitations",
+                "operationId": "deleteInvitation",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/message/allByChat/{chat_id}": {
+            "get": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Get all the messages from a chat",
+                "description": "Returns a list of messages",
+                "operationId": "getMessagesByChat",
+                "parameters": [
+                    {
+                        "name": "chat_id",
+                        "in": "path",
+                        "description": "Search by chat_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "message_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "receiver_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sender_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "chat_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "message_text": {
+                                                        "type": "string",
+                                                        "example": "hello there!"
+                                                    },
+                                                    "date_sent": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    },
+                                                    "message_seen": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/message/save": {
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Create a new Message",
+                "description": "Returns the generated Message",
+                "operationId": "saveMessage",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "receiver_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "chat_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "message_text": {
+                                        "type": "string",
+                                        "example": "hello there!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message_data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "message_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "receiver_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sender_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "chat_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "message_text": {
+                                                        "type": "string",
+                                                        "example": "hello there!"
+                                                    },
+                                                    "date_sent": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    },
+                                                    "message_seen": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/message/updateStatus/{message_id}": {
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Update a Message",
+                "operationId": "updateMessage",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/nextQuestion/all/{survey_id}": {
+            "get": {
+                "tags": [
+                    "Next Question"
+                ],
+                "summary": "Get all the Next Question from a survey",
+                "description": "Returns a list of Next Questions",
+                "operationId": "getNextQuestionsFromSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "definedAnswer": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "next_question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "defined_answer_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/nextQuestion/save": {
+            "post": {
+                "tags": [
+                    "Next Question"
+                ],
+                "summary": "Create a new Next Question",
+                "description": "Returns the generated Next Question",
+                "operationId": "saveNextQuestion",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "defined_answer_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "next_question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "defined_answer_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/nextQuestion/update/{next_question_id}": {
+            "post": {
+                "tags": [
+                    "Next Question"
+                ],
+                "summary": "Update a Next Question",
+                "operationId": "updateNextQuestion",
+                "parameters": [
+                    {
+                        "name": "next_question_id",
+                        "in": "path",
+                        "description": "Search by next_question_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "defined_answer_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/nextQuestion/delete/{next_question_id}": {
+            "post": {
+                "tags": [
+                    "Next Question"
+                ],
+                "summary": "Delete a Next Question",
+                "operationId": "deleteNextQuestion",
+                "parameters": [
+                    {
+                        "name": "next_question_id",
+                        "in": "path",
+                        "description": "Search by next_question_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/privacy/all": {
+            "get": {
+                "tags": [
+                    "Privacy"
+                ],
+                "summary": "Get all the Privacy Details",
+                "description": "Returns Privacy Details",
+                "operationId": "getAllPrivacyDetails",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "privacy": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "privacy_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "privacy_name": {
+                                                        "type": "string",
+                                                        "example": "public"
+                                                    },
+                                                    "privacy_description": {
+                                                        "type": "string",
+                                                        "example": "it is public"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/privacy/all/{privacy_id}": {
+            "get": {
+                "tags": [
+                    "Privacy"
+                ],
+                "summary": "Get all the Privacy Details by privacy_id",
+                "description": "Returns Privacy Details by privacy_id",
+                "operationId": "getPrivacyDetailsByPrivacyId",
+                "parameters": [
+                    {
+                        "name": "privacy_id",
+                        "in": "path",
+                        "description": "Search by privacy_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "privacy_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "privacy_name": {
+                                            "type": "string",
+                                            "example": "public"
+                                        },
+                                        "privacy_description": {
+                                            "type": "string",
+                                            "example": "it is public"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/question/all/{survey_id}": {
+            "get": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Get all the questions from a survey",
+                "description": "Returns a list of questions",
+                "operationId": "getQuestionFromSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "survey_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "next_question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "question_text": {
+                                                        "type": "string",
+                                                        "example": "my question text"
+                                                    },
+                                                    "question_type_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "required": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sequence_number": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/question/save": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Create a new Question",
+                "description": "Returns the generated Question",
+                "operationId": "saveQuestion",
+                "requestBody": {
+                    "description": "Pass user details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "survey_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "next_question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "example": "my question text"
+                                    },
+                                    "question_type_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "required": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "sequence_number": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "survey_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "next_question_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "question_text": {
+                                                        "type": "string",
+                                                        "example": "my question text"
+                                                    },
+                                                    "question_type_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "required": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "sequence_number": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/question/update/{question_id}": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Update a Question",
+                "operationId": "updateQuestion",
+                "parameters": [
+                    {
+                        "name": "question_id",
+                        "in": "path",
+                        "description": "Search by question_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass question details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "survey_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "next_question_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "question_text": {
+                                        "type": "string",
+                                        "example": "my question text"
+                                    },
+                                    "question_type_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "required": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "sequence_number": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/question/delete/{question_id}": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "Delete a Question from your survey",
+                "operationId": "deleteQuestion",
+                "parameters": [
+                    {
+                        "name": "question_id",
+                        "in": "path",
+                        "description": "Search by question_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/questionType/all": {
+            "get": {
+                "tags": [
+                    "Question Type"
+                ],
+                "summary": "Get all the Question Types",
+                "description": "Returns Question Types",
+                "operationId": "getAllQuestionTypes",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "questionType": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "question_type_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "question_type_text": {
+                                                        "type": "string",
+                                                        "example": "short answers"
+                                                    },
+                                                    "question_type_description": {
+                                                        "type": "string",
+                                                        "example": "it is for short answers"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/questionType/all/{question_type}": {
+            "get": {
+                "tags": [
+                    "Question Type"
+                ],
+                "summary": "Get a Question Type",
+                "description": "Returns a Question Type",
+                "operationId": "getQuestionType",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question_type_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "question_type_text": {
+                                            "type": "string",
+                                            "example": "short answers"
+                                        },
+                                        "question_type_description": {
+                                            "type": "string",
+                                            "example": "it is for short answers"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/stats/answerPerQuestion/{question_id}": {
+            "get": {
+                "tags": [
+                    "Stats"
+                ],
+                "summary": "Get all the friends from the logged user",
+                "description": "Returns stats by Answers Per Question",
+                "operationId": "getAnswerStatsPerQuestion",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "answer_text": {
+                                            "type": "string",
+                                            "example": "answer from a question"
+                                        },
+                                        "answer_count": {
+                                            "type": "number",
+                                            "example": "10"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/survey/mine/{survey_id}": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Get a survey of mine",
+                "description": "Returns a list of questions",
+                "operationId": "getFromMySurveys",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "survey_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "survey_name": {
+                                            "type": "number",
+                                            "example": "my survey"
+                                        },
+                                        "survey_description": {
+                                            "type": "number",
+                                            "example": "survey them all"
+                                        },
+                                        "privacy_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "button_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "background_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "active": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "date_created": {
+                                            "type": "string",
+                                            "example": "17/05/2022"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/all/{survey_id}": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Get a survey",
+                "description": "Returns a survey depending on the privacy of the survey",
+                "operationId": "getSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "survey_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "survey_name": {
+                                            "type": "number",
+                                            "example": "my survey"
+                                        },
+                                        "survey_description": {
+                                            "type": "number",
+                                            "example": "survey them all"
+                                        },
+                                        "privacy_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "button_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "background_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "active": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "date_created": {
+                                            "type": "string",
+                                            "example": "17/05/2022"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Get a list of surveys",
+                "description": "Returns only public surveys from a user",
+                "operationId": "getSurveyByUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "Search by user_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "survey_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "survey_name": {
+                                            "type": "number",
+                                            "example": "my survey"
+                                        },
+                                        "survey_description": {
+                                            "type": "number",
+                                            "example": "survey them all"
+                                        },
+                                        "privacy_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "button_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "background_color": {
+                                            "type": "string",
+                                            "example": "#000000"
+                                        },
+                                        "active": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "date_created": {
+                                            "type": "string",
+                                            "example": "17/05/2022"
+                                        },
+                                        "user_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/mine": {
+            "get": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Get all my surveys",
+                "description": "Returns all surveys from the logged user",
+                "operationId": "getAllMySurveys",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Survey": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "survey_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "survey_name": {
+                                                        "type": "number",
+                                                        "example": "my survey"
+                                                    },
+                                                    "survey_description": {
+                                                        "type": "number",
+                                                        "example": "survey them all"
+                                                    },
+                                                    "privacy_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "button_color": {
+                                                        "type": "string",
+                                                        "example": "#000000"
+                                                    },
+                                                    "background_color": {
+                                                        "type": "string",
+                                                        "example": "#000000"
+                                                    },
+                                                    "active": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_created": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/save": {
+            "post": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Create a new Survey",
+                "description": "Returns the generated Survey",
+                "operationId": "saveSurvey",
+                "requestBody": {
+                    "description": "Pass Survey details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "survey_name": {
+                                        "type": "number",
+                                        "example": "my survey"
+                                    },
+                                    "survey_description": {
+                                        "type": "number",
+                                        "example": "survey them all"
+                                    },
+                                    "privacy_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "button_color": {
+                                        "type": "string",
+                                        "example": "#000000"
+                                    },
+                                    "background_color": {
+                                        "type": "string",
+                                        "example": "#000000"
+                                    },
+                                    "active": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "survey": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "survey_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "survey_name": {
+                                                        "type": "number",
+                                                        "example": "my survey"
+                                                    },
+                                                    "survey_description": {
+                                                        "type": "number",
+                                                        "example": "survey them all"
+                                                    },
+                                                    "privacy_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "button_color": {
+                                                        "type": "string",
+                                                        "example": "#000000"
+                                                    },
+                                                    "background_color": {
+                                                        "type": "string",
+                                                        "example": "#000000"
+                                                    },
+                                                    "active": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_created": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/update/{survey_id}": {
+            "post": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Update a Survey",
+                "operationId": "updateSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass Survey details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "survey_name": {
+                                        "type": "number",
+                                        "example": "my survey"
+                                    },
+                                    "survey_description": {
+                                        "type": "number",
+                                        "example": "survey them all"
+                                    },
+                                    "privacy_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "button_color": {
+                                        "type": "string",
+                                        "example": "#000000"
+                                    },
+                                    "background_color": {
+                                        "type": "string",
+                                        "example": "#000000"
+                                    },
+                                    "active": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/survey/delete/{survey_id}": {
+            "post": {
+                "tags": [
+                    "Survey"
+                ],
+                "summary": "Delete from your Surveys",
+                "operationId": "deleteSurvey",
+                "parameters": [
+                    {
+                        "name": "survey_id",
+                        "in": "path",
+                        "description": "Search by survey_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/team/all/{team_id}": {
+            "get": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Get a team from mine ones",
+                "description": "Returns a team",
+                "operationId": "getTeam",
+                "parameters": [
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Search by team_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "team_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "team_name": {
+                                                        "type": "string",
+                                                        "example": "team name"
+                                                    },
+                                                    "team_description": {
+                                                        "type": "string",
+                                                        "example": "my team desc"
+                                                    },
+                                                    "team_url_invitation": {
+                                                        "type": "string",
+                                                        "example": "www.invite.com"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/team/mine": {
+            "get": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Get all my teams",
+                "description": "Returns my teams",
+                "operationId": "getMyTeams",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "team_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "team_name": {
+                                                        "type": "string",
+                                                        "example": "team name"
+                                                    },
+                                                    "team_description": {
+                                                        "type": "string",
+                                                        "example": "my team desc"
+                                                    },
+                                                    "team_url_invitation": {
+                                                        "type": "string",
+                                                        "example": "www.invite.com"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/team/save": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Create a new Team",
+                "description": "Returns the generated Team",
+                "operationId": "saveTeam",
+                "requestBody": {
+                    "description": "Pass team details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "team_name": {
+                                        "type": "string",
+                                        "example": "team name"
+                                    },
+                                    "team_description": {
+                                        "type": "string",
+                                        "example": "my team desc"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "team_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "team_name": {
+                                                        "type": "string",
+                                                        "example": "team name"
+                                                    },
+                                                    "team_description": {
+                                                        "type": "string",
+                                                        "example": "my team desc"
+                                                    },
+                                                    "team_url_invitation": {
+                                                        "type": "string",
+                                                        "example": "www.invite.com"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/team/update/{team_id}": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Update a Team",
+                "operationId": "updateTeam",
+                "parameters": [
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Search by team_id",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass team details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "team_name": {
+                                        "type": "string",
+                                        "example": "team name"
+                                    },
+                                    "team_description": {
+                                        "type": "string",
+                                        "example": "my team desc"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/team/delete/{team_id}": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Delete a Team",
+                "operationId": "deleteTeam",
+                "parameters": [
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Search by team_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/teamMember/mine": {
+            "get": {
+                "tags": [
+                    "Team Member"
+                ],
+                "summary": "Get all the team members related to you",
+                "description": "Returns a list of the team members related to you",
+                "operationId": "getTeamMembers",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "teamMember": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "Dereck"
+                                                    },
+                                                    "family_name": {
+                                                        "type": "string",
+                                                        "example": "Cepeda"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "test@surveyvor.com"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "password1234"
+                                                    },
+                                                    "country_code": {
+                                                        "type": "string",
+                                                        "example": "ES"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "www.myimageprofile.com"
+                                                    },
+                                                    "telephone": {
+                                                        "type": "number",
+                                                        "example": "12345678"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/teamMember/all/{team_id}": {
+            "get": {
+                "tags": [
+                    "Team Member"
+                ],
+                "summary": "Get all the team members by team_id provided",
+                "description": "Returns a list of the team members by team_id provided",
+                "operationId": "getTeamMembersByTeam",
+                "parameters": [
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Search by team_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "teamMember": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "Dereck"
+                                                    },
+                                                    "family_name": {
+                                                        "type": "string",
+                                                        "example": "Cepeda"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "test@surveyvor.com"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "password1234"
+                                                    },
+                                                    "country_code": {
+                                                        "type": "string",
+                                                        "example": "ES"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "www.myimageprofile.com"
+                                                    },
+                                                    "telephone": {
+                                                        "type": "number",
+                                                        "example": "12345678"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/teamMember/save": {
+            "post": {
+                "tags": [
+                    "Team Member"
+                ],
+                "summary": "Create a new Team Member",
+                "description": "Returns the generated Team Member",
+                "operationId": "saveTeamMember",
+                "requestBody": {
+                    "description": "Pass Team Member details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "team_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "teamMember": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "team_member_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "team_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_registered": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/teamMember/saveByInvitation": {
+            "post": {
+                "tags": [
+                    "Team Member"
+                ],
+                "summary": "Create a new Team Member by invitation link",
+                "description": "Returns the generated Team Member",
+                "operationId": "saveByInvitation",
+                "requestBody": {
+                    "description": "Pass Invitation details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "team_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "teamMember": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "team_member_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "team_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_registered": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Data Passed Error"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/teamMember/delete": {
+            "post": {
+                "tags": [
+                    "Team Member"
+                ],
+                "summary": "Delete a Team Member by Team Id and User (by token provided)",
+                "operationId": "deleteByTeam",
+                "requestBody": {
+                    "description": "Pass Team details to leave",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "team_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Data Passed Error"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/userFriend/all": {
+            "get": {
+                "tags": [
+                    "User Friend"
+                ],
+                "summary": "Get all the friends from the logged user",
+                "description": "Returns a list of friends",
+                "operationId": "getNextQuestionsFromSurvey",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "definedAnswer": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_friend_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_related": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/userFriend/save": {
+            "post": {
+                "tags": [
+                    "User Friend"
+                ],
+                "summary": "Create a new User Friend",
+                "description": "Returns the generated User Friend",
+                "operationId": "saveUserFriend",
+                "requestBody": {
+                    "description": "Pass user Friend details",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id_from": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "user_id_to": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_friend_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_related": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/userFriend/delete/{user_friend_id}": {
+            "post": {
+                "tags": [
+                    "User Friend"
+                ],
+                "summary": "Delete a User Friend",
+                "operationId": "deleteUserFriend",
+                "parameters": [
+                    {
+                        "name": "user_friend_id",
+                        "in": "path",
+                        "description": "Search by user_friend_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "question": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_friend_id": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_from": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "user_id_to": {
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "date_related": {
+                                                        "type": "string",
+                                                        "example": "17/05/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "401": {
+                "description": "Unauthenticated"
+            },
+            "403": {
+                "description": "Forbidden"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

@@ -23,6 +23,20 @@ class UserAnswerController extends Controller
         return response()->json(['userAnswer'=>UserAnswer::all()],201);
     }
 
+    public function getBySurvey($survey_id){
+        $survey_ids = getSurveysId();
+        if(!in_array($survey_id, $survey_ids)){
+            return response()->json([
+                'error' =>'Whoops, it looks like it is not your survey'
+            ],201);
+        }
+         $userAnswer = UserAnswer::where('survey_id',$survey_id)
+         ->leftJoin('User', 'User.user_id', '=', 'UserAnswer.user_id')
+         ->select('UserAnswer.*', 'User.email')
+            ->get();
+         return response()->json(['userAnswer'=>$userAnswer],201);
+    }
+
     public function getByQuestion($question_id)
     {   
         $user = auth()->user();

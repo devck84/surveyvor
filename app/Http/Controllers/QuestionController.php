@@ -22,10 +22,80 @@ class QuestionController extends Controller
         return response()->json(['questions'=>Question::all()],201);
     }
 
+    
+    /**
+     * @OA\Get(
+     *      path="/api/question/all/{survey_id}",
+     *      operationId="getQuestionFromSurvey",
+     *      tags={"Question"},
+     *      summary="Get all the questions from a survey",
+     *      description="Returns a list of questions",
+     *      @OA\Parameter(
+     *         name="survey_id",
+     *         in="path",
+     *         description="Search by survey_id",
+     *         required=true,
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="survey_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_text",
+     *                         type="string",
+     *                         example="my question text"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_type_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="required",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sequence_number",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function getBySurvey($survey_id)
     {
-        
-
         $allQuestion = Question::where('survey_id',$survey_id)
         ->orderBy('sequence_number')
             ->get();
@@ -33,6 +103,108 @@ class QuestionController extends Controller
         return response()->json(['questions'=>$allQuestion],201);
     }
 
+
+    /**
+     * @OA\Post(
+     *      path="/api/question/save",
+     *      operationId="saveQuestion",
+     *      tags={"Question"},
+     *      summary="Create a new Question",
+     *      description="Returns the generated Question",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass user details",
+     *       @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="survey_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_text",
+     *                         type="string",
+     *                         example="my question text"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_type_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="required",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sequence_number",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *        @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                property="question",
+     *                type="array",
+     *                @OA\Items(
+     *                      @OA\Property(
+     *                         property="question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="survey_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_text",
+     *                         type="string",
+     *                         example="my question text"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_type_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="required",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sequence_number",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *             ),
+     *        ),
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function save(Request $request)
     {
         $user = auth()->user();
@@ -64,6 +236,68 @@ class QuestionController extends Controller
         ],201);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/question/update/{question_id}",
+     *      operationId="updateQuestion",
+     *      tags={"Question"},
+     *      summary="Update a Question",
+     *      @OA\Parameter(
+     *         name="question_id",
+     *         in="path",
+     *         description="Search by question_id",
+     *         required=true,
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Pass question details",
+     *      @OA\JsonContent(
+     *                      @OA\Property(
+     *                         property="survey_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="next_question_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_text",
+     *                         type="string",
+     *                         example="my question text"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="question_type_id",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="required",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                      @OA\Property(
+     *                         property="sequence_number",
+     *                         type="number",
+     *                         example="1"
+     *                      ),
+     *                ),
+     *      ),
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function update($question_id, Request $request){
         $user = auth()->user();
         $survey_ids = getSurveysId();
@@ -102,6 +336,33 @@ class QuestionController extends Controller
              
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/question/delete/{question_id}",
+     *      operationId="deleteQuestion",
+     *      tags={"Question"},
+     *      summary="Delete a Question from your survey",
+     *      @OA\Parameter(
+     *         name="question_id",
+     *         in="path",
+     *         description="Search by question_id",
+     *         required=true,
+     *      ),
+     
+     *     @OA\Response(
+     *        response=200,
+     *          description="Successful operation",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
     public function delete($question_id){
         $user = auth()->user();
         $survey_ids = getSurveysId();
