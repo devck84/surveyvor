@@ -24,20 +24,6 @@ WARNING:
 You have 5 H1 headings. You may want to use the "H1 -> H2" option to demote all headings by one level.
 
 ----->
-
-
-<p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 1; ALERTS: 5.</p>
-<ul style="color: red; font-weight: bold"><li>See top comment block for details on ERRORs and WARNINGs. <li>In the converted Markdown or HTML, search for inline alerts that start with >>>>>  gd2md-html alert:  for specific instances that need correction.</ul>
-
-<p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
-<a href="#gdcalert2">alert2</a>
-<a href="#gdcalert3">alert3</a>
-<a href="#gdcalert4">alert4</a>
-<a href="#gdcalert5">alert5</a>
-
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
 23/05/2022
 
 Manual Técnico
@@ -45,11 +31,9 @@ Manual Técnico
 Surveyvor_Lite Móvil App
 
 
+<img src="https://raw.githubusercontent.com/devck84/surveyvor/flutter-app/Surveyvor_Lite1.0/documentation/lite1.png">
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
-
-![alt_text](images/image1.png "image_tooltip")
 
 
 **Autor**: Dereck Cepeda
@@ -91,7 +75,7 @@ Dart es un lenguaje de programación diseñado para el desarrollo de clientes, c
 
 **Intellij IDEA**
 
-**	**IntelliJ IDEA es un entorno de desarrollo integrado (IDE) multiplataforma para Java. El IDE puede extenderse mediante numerosos complementos que harán de él un programa todavía más completo.
+IntelliJ IDEA es un entorno de desarrollo integrado (IDE) multiplataforma para Java. El IDE puede extenderse mediante numerosos complementos que harán de él un programa todavía más completo.
 
 
 ## **Postman**
@@ -118,20 +102,15 @@ En el dispositivo móvil, entrar en ajustes, seguridad y seleccionar la opción 
 
 
 
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+<img src="https://raw.githubusercontent.com/devck84/surveyvor/flutter-app/Surveyvor_Lite1.0/documentation/lite2.png">
 
-
-![alt_text](images/image2.png "image_tooltip")
 
 
 	En caso de no tener credenciales, la pantalla de registro está especificada en la pantalla inicial (Como podemos ver en la figura anterior)
 
 
 
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
+<img src="https://raw.githubusercontent.com/devck84/surveyvor/flutter-app/Surveyvor_Lite1.0/documentation/lite3.png">
 
 
 Con esta pantalla podrás registrarte tras rellenar los campos obligatorios, y asimismo, ingresar a la aplicación.
@@ -139,22 +118,15 @@ Con esta pantalla podrás registrarte tras rellenar los campos obligatorios, y a
 
 # **Actividad Principal**
 
-La función principal de **Surveyvor_Lite Móvil App **es la de ver la información registrada y edición de encuestas:
+La función principal de **Surveyvor_Lite Móvil App** es la de ver la información registrada y edición de encuestas:
 
 La creación de encuestas se realizaría en la siguiente pantalla:
 
 
 
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+<img src="https://raw.githubusercontent.com/devck84/surveyvor/flutter-app/Surveyvor_Lite1.0/documentation/lite4.png">
 
-
-![alt_text](images/image4.png "image_tooltip")
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
+<img src="https://raw.githubusercontent.com/devck84/surveyvor/flutter-app/Surveyvor_Lite1.0/documentation/lite5.png">
 
 
 Pudiendo especificar en la primera pestaña el nombre, descripción, privacidad, el estado de actividad de la encuesta, color de fondo de la encuesta y finalmente también el color de los botones.
