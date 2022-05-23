@@ -57,7 +57,6 @@ public class QuestionMakerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         cant = intent.getIntExtra("index", 1);
         question.setSurvey_id(intent.getIntExtra("survey_id",1));
-        Toast.makeText(this, question.getSurvey_id()+"", Toast.LENGTH_SHORT).show();
 
       sequenceNumber.setText(String.valueOf(cant));
 

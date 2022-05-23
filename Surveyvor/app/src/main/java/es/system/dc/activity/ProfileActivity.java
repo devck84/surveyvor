@@ -211,7 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             String token = TokenApp.getTOKEN();
                             RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                            String url ="https://surveyvor.shocklogic.com/api/invitation/save/";
+                            String url ="https://surveyvor.shocklogic.com/api/invitation/save";
 
                             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                                     new com.android.volley.Response.Listener<String>() {

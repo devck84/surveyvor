@@ -186,10 +186,11 @@ public class QuestionAnswerActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         definedAnswers = gson.fromJson(res, DefinedAnswer.class);
                         String[] items = new String[definedAnswers.getDefinedAnswers().size()];
+
                         for (int i=0; i<definedAnswers.getDefinedAnswers().size(); i++)
                         {
-
-                            if(definedAnswers.getDefinedAnswers().get(i).getQuestion_id()==currentQuest.getQuestion_id()){
+                            System.out.println(definedAnswers.getDefinedAnswers().get(i).getQuestion_id()+" "+currentQuest.getQuestion_id());
+                            if(definedAnswers.getDefinedAnswers().get(i).getQuestion_id().equals(currentQuest.getQuestion_id())){
                                 defAns.add(definedAnswers.getDefinedAnswers().get(i));
 
                             }
