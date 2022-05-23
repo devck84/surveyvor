@@ -18,7 +18,7 @@ interface IState {
     survey: Survey;
     questions: Array<Question>;
     nextQuestions: Array<NextQuestion>;
-    definedAnswers: Array<DefinedAnswer>;
+    definedAnswers: Array<Array<DefinedAnswer>>;
 }
 const CreateSurveyComp = () => {
     const [surveyObj, setSurvey] = useState<IState>();
@@ -36,6 +36,10 @@ const CreateSurveyComp = () => {
     
 
     useEffect(() => {
+      const suuid = uuid();
+      const bigIntValue:BigInt = BigInt(
+          "0x" + suuid.replace(/-/g, "")
+      );
       setSurvey({survey: new Survey(
         {survey_id: 0, team_id: null, privacy_id: 0, user_id: 0, survey_name: "", survey_description: null, button_color: null, background_color: null,
         date_created: "", active: 1}), questions:[{
@@ -46,7 +50,7 @@ const CreateSurveyComp = () => {
           question_type_id: 0,
           required: 0,
           sequence_number: 1,
-        }],nextQuestions:[{next_question_id:0,defined_answer_id:0,question_id:0}],definedAnswers:[{defined_answer_id:0, defined_answer_text:"", question_id:0}]});
+        }],nextQuestions:[{next_question_id:0,defined_answer_id:null,question_id:0}],definedAnswers:[[{defined_answer_id:0, defined_answer_text:"", question_id:0}]]});
         if(token){
           let headers = {
             headers: {
@@ -72,7 +76,9 @@ const CreateSurveyComp = () => {
       const bigIntValue:BigInt = BigInt(
           "0x" + suuid.replace(/-/g, "")
       );
-
+      const bigIntValue2:BigInt = BigInt(
+        "0x" + suuid.replace(/-/g, "")
+    );
       setSurvey({survey: surveyDetails.survey, questions: [...surveyDetails.questions,{
         question_id: Number(bigIntValue),
         survey_id: 0,
@@ -81,7 +87,7 @@ const CreateSurveyComp = () => {
         question_type_id: 1,
         required: 0,
         sequence_number: surveyDetails.questions.length+1,
-      }],nextQuestions:[...surveyDetails.nextQuestions,{next_question_id:0,defined_answer_id:null,question_id:null}],definedAnswers:[...surveyDetails.definedAnswers,{defined_answer_id:0, defined_answer_text:"", question_id:0}]});
+      }],nextQuestions:[...surveyDetails.nextQuestions,{next_question_id:0,defined_answer_id:null,question_id:null}],definedAnswers:[...surveyDetails.definedAnswers,[{defined_answer_id:0, defined_answer_text:"", question_id:0}]]});
     }
 
     const saveQuestionDetails = (index:number, question:Question) =>{
@@ -92,7 +98,6 @@ const CreateSurveyComp = () => {
       stateObj.questions[index].required = question.required;
       stateObj.questions[index].next_question_id = question.next_question_id;
       stateObj.questions[index].sequence_number = question.sequence_number;
-      console.log(stateObj.questions[index]);
       setSurvey(stateObj);
     }
     
@@ -122,17 +127,19 @@ const CreateSurveyComp = () => {
   }
 
   const saveNextQuestion = (i:number,nextQuestion:NextQuestion) =>{
-     let surveyDetails:IState = surveyObj as IState;
-     surveyDetails.nextQuestions[i].defined_answer_id = nextQuestion.defined_answer_id;
-     surveyDetails.nextQuestions[i].next_question_id = nextQuestion.next_question_id;
-     surveyDetails.nextQuestions[i].question_id = nextQuestion.question_id;
-     setSurvey(surveyDetails);
+    let stateObj:IState = Object.assign([], surveyObj);
+      stateObj.nextQuestions[i].defined_answer_id = nextQuestion.defined_answer_id;
+      stateObj.nextQuestions[i].next_question_id = nextQuestion.next_question_id;
+      stateObj.nextQuestions[i].question_id = nextQuestion.question_id;
+      setSurvey(stateObj);
   }
 
-  const addAnswerTypeComp = (id:number) => {
+  const addAnswerTypeComp = (q_index:number, id:number) => {
+    
     let surveyDetails:IState = surveyObj as IState;
-    surveyDetails.definedAnswers = [
-      ...surveyDetails?.definedAnswers,
+    
+    surveyDetails.definedAnswers[q_index] = [
+      ...surveyDetails?.definedAnswers[q_index],
       {
         defined_answer_id: id,
         question_id: 0,
@@ -149,11 +156,11 @@ const CreateSurveyComp = () => {
     setSurvey(surveyDetails);
   };
 
-  const saveDefinedAnswer = (i:number,definedAnswer:DefinedAnswer) =>{
+  const saveDefinedAnswer = (q_index:number, i:number,definedAnswer:DefinedAnswer) =>{
     let surveyDetails:IState = surveyObj as IState;
-    surveyDetails.definedAnswers[i].defined_answer_id = definedAnswer.defined_answer_id;
-    surveyDetails.definedAnswers[i].defined_answer_text = definedAnswer.defined_answer_text;
-    surveyDetails.definedAnswers[i].question_id = definedAnswer.question_id;
+    surveyDetails.definedAnswers[q_index][i].defined_answer_id = definedAnswer.defined_answer_id;
+    surveyDetails.definedAnswers[q_index][i].defined_answer_text = definedAnswer.defined_answer_text;
+    surveyDetails.definedAnswers[q_index][i].question_id = definedAnswer.question_id;
     setSurvey(surveyDetails);
  }
 
@@ -176,6 +183,13 @@ const CreateSurveyComp = () => {
         return
       }
 
+      Swal.fire({
+        title: "Saving",
+        icon: "warning",
+        text: "We are saving your survey",
+      showDenyButton: false
+    });
+
       await axios.post(survRoute, surveyObj?.survey,headers)
         .then(response => {
           surveyDetails.survey = response.data.survey as Survey;
@@ -196,21 +210,23 @@ const CreateSurveyComp = () => {
       }
      
       for (let i = 0; i < surveyDetails.definedAnswers.length; i++) {
-        if(surveyDetails.definedAnswers[i].defined_answer_text.length>0){
-          let pos = surveyDetails.definedAnswers[i].defined_answer_id;
-          surveyDetails.definedAnswers[i].question_id = surveyDetails.questions[pos].question_id;
-          await axios.post(defRoute,surveyDetails.definedAnswers[i],headers)
-          .then(response => {
-            surveyDetails.definedAnswers[i] = response.data.definedAnswer as DefinedAnswer;
-            setSurvey(surveyDetails);
-          });
+        for (let j = 0; j < surveyDetails.definedAnswers[i].length; j++) {
+          if(surveyDetails.definedAnswers[i][j].defined_answer_text.length>0){
+            let pos = surveyDetails.definedAnswers[i][j].defined_answer_id;
+            surveyDetails.definedAnswers[i][j].question_id = surveyDetails.questions[pos].question_id;
+            await axios.post(defRoute,surveyDetails.definedAnswers[i][j],headers)
+            .then(response => {
+              surveyDetails.definedAnswers[i][j] = response.data.definedAnswer as DefinedAnswer;
+              setSurvey(surveyDetails);
+            });
+          }
         }
       }
 
       for (let i = 0; i < surveyDetails.nextQuestions.length; i++) {
         let pos = surveyDetails.nextQuestions[i].defined_answer_id;
-        if(pos){
-          surveyDetails.nextQuestions[i].defined_answer_id = surveyDetails.definedAnswers[pos].defined_answer_id;
+        if(pos!=null){
+          surveyDetails.nextQuestions[i].defined_answer_id = surveyDetails.definedAnswers[i][pos].defined_answer_id;
         
           let posq =surveyDetails.nextQuestions[i].question_id;
           if(posq!=null){
@@ -239,7 +255,7 @@ const CreateSurveyComp = () => {
       } 
 
     successMessage("Saved","Your survey have been succesfuly saved!");
-    
+    navigate("/");
   }
 
   const successMessage = (title:string, message:string) => {

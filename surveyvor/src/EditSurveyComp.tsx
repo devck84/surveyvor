@@ -41,13 +41,6 @@ const EditSurveyComp = () => {
         }
     },[]);
 
-    function uuid() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
     const saveDetails = (survey_name:string, survey_description:string, privacy_id:number, active:number, team:number) =>{
         let surveyDetails:IState = state as IState;
         surveyDetails.survey.survey_name = survey_name;

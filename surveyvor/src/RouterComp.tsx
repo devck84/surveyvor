@@ -6,7 +6,7 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'font-awesome/css/font-awesome.min.css';
 import CreateSurveyComp from './CreateSurvey';
 import DashboardComp from './DashboardComp';
-import LoginComp from './LoginComp';
+import LoginComp from './loginComp';
 import SurveyToAnswerComp from './SurveyToAnswerComp';
 import ThankYouPage from './ThankYouPage';
 import ProfileComp from './ProfileComp';

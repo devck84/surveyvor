@@ -24,8 +24,18 @@ interface IQuestionMakerComp{
 const DefinedAnswerMakerComp = (props: IQuestionMakerComp) => {
 
     const saveDetails = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        const i = e.currentTarget.getAttribute('data-index');
+       const i = e.currentTarget.getAttribute('data-index');
         props.saveDetails(e, i);
+    }
+    function uuid() {
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          var r = (Math.random() * 16) | 0,
+            v = c == "x" ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        }
+      );
     }
  
   if(props.selectedType==3){
@@ -35,28 +45,28 @@ const DefinedAnswerMakerComp = (props: IQuestionMakerComp) => {
         { props.definedAnswers.map((d,i)=>{
                     return(
                     <div className="row" key={d.defined_answer_id+"-answerField-"+i}>
-        <div className="col-md-11" key={d.defined_answer_id+'-div'}>
-        <div className="form-floating mb-3" key={d.defined_answer_id+'-form'}>
+        <div className="col-md-12" key={d.defined_answer_id+'-div'+i}>
+        <div className="form-floating mb-3" key={d.defined_answer_id+'-form'+i}>
             
                         <input
                         key={d.defined_answer_id+'-input-'+i}
                         data-index={i}
                         type="text"
                         className="form-control"
-                        id={"floating-"+d.defined_answer_id+'-field'}
+                        id={"floating-"+d.defined_answer_id+'-field'+i}
                         placeholder="text"
                         name={d.defined_answer_id+'-field'}
                         onChange={saveDetails}
                     
                     />
-                    <label htmlFor={"floating-"+d.defined_answer_id+'-field'}>Answer Nº {i+1}</label>
+                    <label htmlFor={"floating-"+d.defined_answer_id+'-field'+i}>Answer Nº {i+1}</label>
                     
                     
                
                 </div>
                 </div>
-                <div className="col-md-1" key={d.defined_answer_id+'-input'}>
-                <button
+                <div className="col-md-1" key={d.defined_answer_id+'-input'+i}>
+           { /*   <button
                 onClick={()=>{props.removeAnswerTypeComp(i)}}
               type="button"
               key={d.defined_answer_id+'-button-'+i}
@@ -64,7 +74,7 @@ const DefinedAnswerMakerComp = (props: IQuestionMakerComp) => {
               style={{ width: "100%", height: "58px"}}
             >
                <i className="fa fa-trash"></i>
-            </button>
+                    </button> */ }
                </div></div> );
             })
                 

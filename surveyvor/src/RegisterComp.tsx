@@ -50,6 +50,9 @@ const LoginComp = () => {
     let tel: number = parseInt(inputTel.value);
     let country: string = inputCountry.value;
     let password: string = inputPassword.value;
+    if(password.length < 6){
+      errorMessage("Whoops","Password field requires more than 6 characters");
+    }
     let newUser:User = {
         user_id: 0,
         email: email,

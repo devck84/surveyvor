@@ -154,7 +154,17 @@ const AnswerTypeComp = (props: IQuestionByTypeMakerComp) => {
                 );
         default:
             return (
-                <></>
+                <>
+                    <input
+                    key={props.questionId+'-inputType1'}
+                    type="text"
+                    className="form-control"
+                    id={"floating"+props.questionId+'-field'}
+                    placeholder="text"
+                    name={props.questionId+'-field'}
+                    onChange={answerSaveInputObj}
+                />
+              </>
                 );
     }
   

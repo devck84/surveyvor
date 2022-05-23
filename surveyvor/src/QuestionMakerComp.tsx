@@ -20,7 +20,7 @@ interface IQuestionMakerComp {
   nextQuestion: NextQuestion;
   saveQuestionDetails: Function;
   saveNextQuestion: Function;
-  definedAnswer:DefinedAnswer;
+  definedAnswer: Array<DefinedAnswer>;
   saveDefinedAnswer: Function;
   removeAnswerTypeComp: Function;
   addAnswerTypeComp: Function;
@@ -58,13 +58,7 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       setQuestionType({
         allQuestionType: quesType,
         selectedType: idqt,
-        definedAnswers: [
-          {
-            defined_answer_id: Number(bigIntValue),
-            question_id: 0,
-            defined_answer_text: "",
-          },
-        ],
+        definedAnswers: props?.definedAnswer,
       });
     }
     fetchMyAPI();
@@ -103,20 +97,21 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       definedAnswers: [
         ...stateObj?.definedAnswers,
         {
-          defined_answer_id: Number(bigIntValue),
+          defined_answer_id: 0,
           question_id: 0,
           defined_answer_text: "",
         },
       ],
     });
 
-    props.addAnswerTypeComp(Number(bigIntValue));
+    props.addAnswerTypeComp(props.index-1,0);
   };
 
   const removeAnswerTypeComp = (index: number) => {
+    
     let stateObj: IState = Object.assign([], questionTypes);
 
-    let defAnswers = [...(stateObj?.definedAnswers as Array<DefinedAnswer>)];
+    let defAnswers = stateObj?.definedAnswers;
     defAnswers.splice(index, 1);
 
     setQuestionType({
@@ -124,7 +119,7 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       selectedType: stateObj.selectedType,
       definedAnswers: defAnswers,
     });
-    props.addAnswerTypeComp(index);
+    props.removeAnswerTypeComp(index);
   };
 
   const saveDefinedDetails = (
@@ -141,9 +136,9 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
       selectedType: stateObj.selectedType,
       definedAnswers: objDA,
     });
-    props.saveDefinedAnswer(index,objDA[index]);
-    props.nextQuestion.defined_answer_id = index;
-    props.saveNextQuestion(props.index-1,props.nextQuestion);
+    props.saveDefinedAnswer( props.index-1, index,objDA[index]);
+  //  props.nextQuestion.defined_answer_id = props.index-1;
+  //  props.saveNextQuestion(props.index-1,props.nextQuestion);
   };
 
   const saveQuestionPerInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
@@ -167,6 +162,12 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
   const saveNextQuest = (e: React.ChangeEvent<HTMLSelectElement>)=>{
     const i = e.currentTarget.getAttribute('data-index');
     props.nextQuestion.question_id = Number(e.target.value);
+    props.saveNextQuestion(Number(i)-1,props.nextQuestion);
+  }
+
+  const saveNextQuestDef = (e: React.ChangeEvent<HTMLSelectElement>)=>{
+    const i = e.currentTarget.getAttribute('data-index');
+    props.nextQuestion.defined_answer_id = Number(e.target.value);
     props.saveNextQuestion(Number(i)-1,props.nextQuestion);
   }
   
@@ -281,12 +282,14 @@ const QuestionMakerComp = (props: IQuestionMakerComp) => {
             className="form-control"
             name="nextQuestion"
             id="nextQuestion"
+            data-index={props.index}
+            onChange={saveNextQuestDef}
           >
             {questionTypes?.definedAnswers?.map((a, i) => {
               return (
                 <option
                   key={a.defined_answer_id + "-opt"+i}
-                  value={a.defined_answer_id}
+                  value={i}
                 >
                   {i} - {a.defined_answer_text}
                 </option>

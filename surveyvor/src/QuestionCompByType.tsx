@@ -124,9 +124,19 @@ const QuestionByTypeMakerComp = (props: IQuestionByTypeMakerComp) => {
                 </>
                 );
         default:
-            return (
-                <></>
-                );
+            return (<>
+                <input
+                key={props.idTypeComp+'-inputType1'}
+                type="text"
+                className="form-control"
+                id={"floating"+props.idTypeComp+'-field'}
+                placeholder="text"
+                name={props.idTypeComp+'-field'}
+                disabled
+            />
+            <label htmlFor={"floating"+props.idTypeComp+'-field'}>Short Answer</label>
+          </>
+            );
     }
   
 };
